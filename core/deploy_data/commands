@@ -1,0 +1,25 @@
+[telegram_post_scrapper]
+  python manage.py    client
+  python manage.py    scrapper_parse
+
+
+
+[staticfiles]
+    python manage.py  collectstatic
+    python manage.py findstatic
+    python manage.py  runserver
+
+
+
+[emaktabuz]
+     python manage.py emaktab_data
+
+
+[central]
+    python manage.py  get_webhook_info
+    python manage.py  set_webhook
+
+
+[auth]
+    changepassword
+     python manage.py createsuperuser

@@ -1,0 +1,20 @@
+
+sudo nano /etc/systemd/system/bot_worker.service
+sudo systemctl start bot_worker.service
+sudo systemctl enable bot_worker.service
+sudo systemctl status bot_worker.service
+
+
+[Unit]
+Description=Celery bot Worker
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/CommonBot
+ExecStart=/bin/bash -c '/var/www/CommonBot/env/bin/celery -A core worker --loglevel=info '
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

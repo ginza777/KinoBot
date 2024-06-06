@@ -1,0 +1,156 @@
+
+/var/www/CommonBot/env
+/var/www/CommonBot
+
+sudo apt update
+sudo apt install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+sudo systemctl status nginx
+systemctl daemon-reload
+
+sudo nginx -t
+sudo systemctl restart nginx
+apt install python3-virtualenv
+apt install redis-server
+
+sudo apt update
+sudo apt install python3-venv python3-dev libpq-dev postgresql postgresql-contrib nginx curl
+
+sudo -u postgres psql
+
+CREATE DATABASE bot;
+CREATE USER postgres WITH PASSWORD 'postgres';
+ALTER USER postgres WITH PASSWORD  'postgres';
+ALTER ROLE postgres SET client_encoding TO 'utf8';
+ALTER ROLE postgres SET default_transaction_isolation TO 'read committed';
+ALTER ROLE postgres SET timezone TO 'UTC';
+GRANT CREATE ON SCHEMA public TO postgres;
+
+GRANT ALL PRIVILEGES ON DATABASE bot TO postgres;
+\q
+
+
+pip install -r requirements
+mkdir staticfiles
+python manage.py collectstatic
+pip install --upgrade setuptools
+python manage.py migrate
+python manage.py createsuperuser
+
+admin
+123
+
+
+sudo nano /etc/systemd/system/bot.socket
+
+[Unit]
+Description=bot socket
+
+[Socket]
+ListenStream=/run/bot.sock
+
+[Install]
+WantedBy=sockets.target
+
+
+sudo nano /etc/systemd/system/bot.service
+
+
+[Unit]
+Description=bot daemon
+Requires=bot.socket
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/CommonBot
+ExecStart=/var/www/CommonBot/env/bin/gunicorn \
+          --access-logfile - \
+          --workers 4 \
+          --bind unix:/run/bot.sock \
+          core.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl start bot.socket
+sudo systemctl enable bot.socket
+sudo systemctl status bot.socket
+
+
+file /run/bot.sock
+sudo journalctl -u bot.socket
+curl --unix-socket /run/bot.sock localhost
+sudo journalctl -u bot
+
+sudo systemctl daemon-reload
+sudo systemctl restart bot
+sudo systemctl status bot
+
+
+
+
+
+
+openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/privkey.pem -pkeyopt rsa_keygen_bits:2048
+openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/fullchain.pem -pkeyopt rsa_keygen_bits:2048
+
+
+sudo nano /etc/nginx/sites-available/admin.sherzamon.cloud
+
+
+
+server {
+    listen 80;
+    server_name admin.sherzamon.cloud;
+
+
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /var/www/CommonBot;
+    }
+
+    location /media/ {
+        root /var/www/CommonBot;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/bot.sock;
+        proxy_connect_timeout 300s;
+        proxy_read_timeout 300s;
+    }
+}
+
+
+
+sudo ln -s /etc/nginx/sites-available/admin.sherzamon.cloud /etc/nginx/sites-enabled
+sudo nginx -t
+sudo systemctl restart nginx
+journalctl -xeu nginx.service
+
+
+
+
+
+#certbot
+
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d admin.sherzamon.cloud
+sudo systemctl status certbot.timer
+sudo certbot renew --dry-run
+
+
+
+
+sudo journalctl -u bot --lines 50
+sudo tail -F /var/log/nginx/error.log
+
+
+
+celery -A  core beat --loglevel=info  --scheduler django_celery_beat.schedulers:DatabaseScheduler
+celery -A  core worker  --loglevel=info

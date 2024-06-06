@@ -1,0 +1,13 @@
+sudo nano /etc/systemd/system/bot.socket
+sudo systemctl start bot.socket
+sudo systemctl enable bot.socket
+sudo systemctl status bot.socket
+
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/bot.sock
+
+[Install]
+WantedBy=sockets.target
