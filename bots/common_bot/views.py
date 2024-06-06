@@ -43,7 +43,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
     video = update.message.video
     caption = update.message.caption
     sign_text = "\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾@uzbek_kino_time\n♥️ 🐾@uzbek_kino_time_bot"
-    if video.duration <= 1800:
+    if video.duration <= 1200:
         if caption.isdigit():
             movie_code = int(caption)
             movie = Movie.objects.filter(code=movie_code).first()
