@@ -20,10 +20,10 @@ def share_post_inline_button(post_id) -> InlineKeyboardMarkup:
 
 
 
-def start_with_code_keyboard(code) -> InlineKeyboardMarkup:
+def start_with_code_keyboard(bot_username,code) -> InlineKeyboardMarkup:
     share_bot = f"Share this Movie "
     buttons = [[
-        InlineKeyboardButton(share_bot, switch_inline_query=f"https://t.me/{Bot_settings.bot_username}?start={code}")
+        InlineKeyboardButton(share_bot, switch_inline_query=f"https://t.me/{bot_username}?start={code}")
     ]]
     return InlineKeyboardMarkup(buttons)
 

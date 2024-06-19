@@ -1,7 +1,17 @@
 from django.contrib import admin
 
 from .main_bot.admin import *  # noqa
-from .models import Movie, MovieChannel, Unnecessary_word_filter, MovieTrailer
+from .models import Movie, MovieChannel, Unnecessary_word_filter, MovieTrailer,SuperSettings
+
+@admin.register(SuperSettings)
+class SuperSettingsAdmin(admin.ModelAdmin):
+    list_display = ["id", "movie_channel_username", "movie_bot_username","movie_count","movie_trailer_count"]
+
+    def movie_count(self, obj):
+        return Movie.objects.count()
+
+    def movie_trailer_count(self, obj):
+        return MovieTrailer.objects.count()
 
 
 @admin.register(Movie)

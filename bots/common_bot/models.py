@@ -88,3 +88,14 @@ class Unnecessary_word_filter(CreateTracker):
 
     def __str__(self):
         return str(self.word)
+
+
+class SuperSettings(CreateTracker):
+    movie_channel_username= models.CharField(max_length=64, unique=True)
+    movie_bot_username= models.CharField(max_length=64, unique=True)
+    trailer_channel_id= models.IntegerField(unique=True,default="-1002080046544")
+
+    def __str__(self):
+        return  "SuperSetttings"
+
+
