@@ -51,6 +51,12 @@ def backup_db(update: Update, context: CallbackContext) -> None:
     try:
         # Attempt to perform database backup
         dump_file, metadata, error = backup_database()
+        print("\n\n")
+        print(100*"-_")
+
+        print("error", error)
+
+        time.sleep(5)
 
         if error is not None:
             update.message.reply_text(f"Failed to perform database backup. Error:\n{error}")
@@ -66,12 +72,13 @@ def backup_db(update: Update, context: CallbackContext) -> None:
 
 
 def db_check():
-    if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql':
+    if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql' or settings.DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql_psycopg2':
         return "PostgreSQL"
     elif settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
         return "SQLite"
     elif settings.DATABASES['default']['ENGINE'] == 'django.db.backends.mysql':
         return "MySQL"
+    print("Database not supported")
 
 
 def backup_database():
@@ -79,7 +86,8 @@ def backup_database():
     metadata = None
     error = None
     try:
-        if db_check() == "PostgreSQL":
+        db_type = db_check()
+        if db_type == "PostgreSQL":
             DB_NAME = settings.DATABASES['default']['NAME']
             DB_USER = settings.DATABASES['default']['USER']
             DB_PASSWORD = settings.DATABASES['default']['PASSWORD']
@@ -88,26 +96,30 @@ def backup_database():
             dump_file = f"backup_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.sql"
             metadata = f"db_name : {DB_NAME} ,\n db_user : {DB_USER} ,\n db_password : {DB_PASSWORD} ,\n db_host : {DB_HOST} ,\n db_port : {DB_PORT} ,\n dump_file : {dump_file}"
             print(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, dump_file)
-            # Dumpni olish uchun bash komandasi
 
             command = f"pg_dump -U {DB_USER} -h {DB_HOST} -p {DB_PORT} {DB_NAME} > {dump_file}"
             os.environ['PGPASSWORD'] = DB_PASSWORD
-            # Komandani bajarish
-            try:
-                subprocess.run(command, shell=True, check=True)
 
+            try:
+                result = subprocess.run(command, shell=True, check=True, stderr=subprocess.PIPE)
+                if result.returncode != 0:
+                    error = result.stderr
             except subprocess.CalledProcessError as e:
-                error = e
-        elif db_check() == "SQLite":
+                error = e.stderr
+        elif db_type == "SQLite":
             DB_NAME = settings.DATABASES['default']['NAME']
             dump_file = f"backup_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.sqlite3"
             metadata = f"db_name : {DB_NAME} ,\n dump_file : {dump_file}"
+
             command = f"sqlite3 {DB_NAME} .dump > {dump_file}"
+
             try:
-                subprocess.run(command, shell=True, check=True)
+                result = subprocess.run(command, shell=True, check=True, stderr=subprocess.PIPE)
+                if result.returncode != 0:
+                    error = result.stderr
             except subprocess.CalledProcessError as e:
-                error = e
+                error = e.stderr
     except Exception as e:
-        error = e
+        error = str(e)
 
     return dump_file, metadata, error
