@@ -82,7 +82,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 if env.bool("SERVER"):
     DATABASES = {
         "default": {
-            "ENGINE": env.str("DB_ENGINE", "django.db.backends.postgresql"),
+            "ENGINE": env.str("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
             "NAME": env.str("DB_NAME"),
             "USER": env.str("DB_USER"),
             "PASSWORD": env.str("DB_PASSWORD"),
