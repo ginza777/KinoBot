@@ -1,6 +1,6 @@
 
-/var/www/CommonBot/env
-/var/www/CommonBot
+/var/opt/CommonBot/env
+/var/opt/CommonBot/KinoBot
 
 sudo apt update
 sudo apt install nginx
@@ -65,8 +65,8 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/var/www/CommonBot
-ExecStart=/var/www/CommonBot/env/bin/gunicorn \
+WorkingDirectory=/var/opt/CommonBot/KinoBot
+ExecStart=/var/opt/CommonBot//env/bin/gunicorn \
           --access-logfile - \
           --workers 4 \
           --bind unix:/run/bot.sock \
@@ -99,23 +99,23 @@ openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/pr
 openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/fullchain.pem -pkeyopt rsa_keygen_bits:2048
 
 
-sudo nano /etc/nginx/sites-available/admin.sherzamon.cloud
+sudo nano /etc/nginx/sites-available/crm.sherzamon.cloud
 
 
 
 server {
     listen 80;
-    server_name admin.sherzamon.cloud;
+    server_name crm.sherzamon.cloud;
 
 
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root /var/www/CommonBot;
+        root /var/opt/CommonBot/KinoBot;
     }
 
     location /media/ {
-        root /var/www/CommonBot;
+        root /var/opt/CommonBot/KinoBot;
     }
 
     location / {
@@ -128,9 +128,8 @@ server {
 
 
 
-sudo ln -s /etc/nginx/sites-available/admin.sherzamon.cloud /etc/nginx/sites-enabled
-sudo nginx -t
-sudo systemctl restart nginx
+sudo ln -s /etc/nginx/sites-available/crm.sherzamon.cloud /etc/nginx/sites-enabled
+w
 journalctl -xeu nginx.service
 
 
@@ -140,7 +139,7 @@ journalctl -xeu nginx.service
 #certbot
 
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d admin.sherzamon.cloud
+sudo certbot --nginx -d crm.sherzamon.cloud
 sudo systemctl status certbot.timer
 sudo certbot renew --dry-run
 

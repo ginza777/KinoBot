@@ -4,15 +4,19 @@ sudo systemctl enable bot_beat.service
 sudo systemctl status bot_beat.service
 
 
+/var/opt/CommonBot/env
+/var/opt/CommonBot/KinoBot
+
+
 [Unit]
 Description=Celery bot Beat Scheduler
 After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/var/opt/CommonBot
-ExecStart=/bin/bash -c '/var/opt/CommonBot/env/bin/celery -A bot beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler'
-#ExecStart=/bin/bash -c '/var/opt/CommonBot/env/bin/celery -A bot beat --loglevel=info '
+WorkingDirectory=/var/opt/CommonBot/KinoBot
+ExecStart=/bin/bash -c '/var/opt/CommonBot/env/bin/celery -A core beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler'
+#ExecStart=/bin/bash -c '/var/opt/CommonBot/env/bin/celery -A core beat --loglevel=info '
 Restart=always
 User=root
 

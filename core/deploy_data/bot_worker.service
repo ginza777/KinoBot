@@ -4,6 +4,11 @@ sudo systemctl start bot_worker.service
 sudo systemctl enable bot_worker.service
 sudo systemctl status bot_worker.service
 
+/var/opt/CommonBot/env
+/var/opt/CommonBot/KinoBot
+
+
+
 
 [Unit]
 Description=Celery bot Worker
@@ -11,8 +16,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/var/www/CommonBot
-ExecStart=/bin/bash -c '/var/www/CommonBot/env/bin/celery -A core worker --loglevel=info '
+WorkingDirectory=/var/opt/CommonBot/KinoBot
+ExecStart=/bin/bash -c '/var/opt/CommonBot/env/bin/celery -A core worker --loglevel=info '
 Restart=always
 User=root
 
