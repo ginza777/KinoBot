@@ -14,6 +14,24 @@ from .main_bot.bot import Bot_settings
 from .models import User, Movie, MovieTrailer, SuperSettings
 
 
+def not_movie_data(update: Update, context: CallbackContext):
+    if not Movie.objects.exists():
+        return update.message.reply_text("Bazada hech qanday kino topilmadi")
+    return update.message.reply_text("Qandaydir xato sodir bo'ldi. Iltimos qayta urinib ko'ring 🥺😢🙃")
+
+
+def movie_channel_username():
+    if SuperSettings.objects.exists():
+        return SuperSettings.objects.last().movie_channel_username, SuperSettings.objects.last().movie_bot_username
+    return "@uzbek_kino_time", "@uzbek_kino_time_bot"
+
+
+def get_trailer_chat_id():
+    if SuperSettings.objects.exists():
+        return SuperSettings.objects.last().trailer_chat_id
+    return "-1002080046544"
+
+
 @add_ask_subscribe_channel
 def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
     u, created = User.get_user_and_created(update, context)
@@ -37,20 +55,9 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
                                   reply_markup=default_keyboard())
 
 
-def movie_channel_username():
-    if SuperSettings.objects.exists():
-        return SuperSettings.objects.last().movie_channel_username, SuperSettings.objects.last().movie_bot_username
-    return "@uzbek_kino_time", "@uzbek_kino_time_bot"
-
-def get_trailer_chat_id():
-    if SuperSettings.objects.exists():
-        return SuperSettings.objects.last().trailer_chat_id
-    return "-1002080046544"
-
-
 @admin_only
 def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
-    bot_username=context.bot.username
+    bot_username = context.bot.username
     print(update.message.to_dict())
     video = update.message.video
     caption = update.message.caption
@@ -74,22 +81,23 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     update.message.reply_text("Trailer added to the movie successfully")
                     context.bot.send_video(chat_id=update.message.chat_id, video=movie_trailer.metadata.get('file_id'),
                                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                           reply_markup=start_with_code_keyboard(bot_username,code=movie.code))
+                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
                     context.bot.send_video(chat_id=get_trailer_chat_id(), video=movie_trailer.metadata.get('file_id'),
                                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                           reply_markup=start_with_code_keyboard(bot_username,code=movie.code))
+                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
                 else:
-                    movie_trailer = MovieTrailer.objects.create(file_unique_id=video.file_unique_id,metadata=video.to_dict())
+                    movie_trailer = MovieTrailer.objects.create(file_unique_id=video.file_unique_id,
+                                                                metadata=video.to_dict())
                     movie.trailer = movie_trailer
                     movie.save()
                     update.message.reply_text("New trailer added to the database successfully")
                     context.bot.send_video(chat_id=update.message.chat_id, video=movie_trailer.metadata.get('file_id'),
-                                             caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                             reply_markup=start_with_code_keyboard(bot_username,code=movie.code))
+                                           caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
 
                     context.bot.send_video(chat_id=get_trailer_chat_id(), video=movie_trailer.metadata.get('file_id'),
                                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                           reply_markup=start_with_code_keyboard(bot_username,code=movie.code))
+                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
 
             else:
                 update.message.reply_text(f"Movie not found with code {movie_code}")
@@ -116,8 +124,9 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
 
 @check_subscription_channel_always
 def get_movie_by_code(update: Update, context: CallbackContext) -> None:
+    not_movie_data(update, context)
     sign_text = "\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾@uzbek_kino_time\n♥️ 🐾@uzbek_kino_time_bot"
-    bot_username=context.bot.username
+    bot_username = context.bot.username
     if update.message.text.startswith("/start"):
         code = int(update.message.text.split("/start ")[1])
     else:
@@ -133,7 +142,8 @@ def get_movie_by_code(update: Update, context: CallbackContext) -> None:
                                        caption=f"Movie code: {movie.code}\n{movie.caption}" + sign_text,
                                        protect_content=True,
                                        parse_mode="HTML",
-                                       reply_markup=make_movie_share_keyboard_with_code(code=movie.code,bot_username=bot_username)
+                                       reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
+                                                                                        bot_username=bot_username)
                                        )
         else:
             update.message.reply_text("Movie not found with this code 🥺😢🙃")
@@ -143,6 +153,7 @@ def get_movie_by_code(update: Update, context: CallbackContext) -> None:
 
 @check_subscription_channel_always
 def search_movies(update: Update, context: CallbackContext) -> None:
+    not_movie_data(update, context)
     if update and update.message and update.message.text == "🔍 Search Movies":
         update.message.reply_text("Can you please tell me the name of the movie you are looking for? 🤔🤔🤔")
     if update and update.message and update.message.text and update.message.text != "🔍 Search Movies":
@@ -171,6 +182,7 @@ def search_movies(update: Update, context: CallbackContext) -> None:
 
 @check_subscription_channel_always
 def top_movies(update: Update, context: CallbackContext) -> None:
+    not_movie_data(update, context)
     if update and update.message and update.message.text == "🎲 Random Movie":
         movie = Movie.objects.order_by("?").first()
         if movie:
@@ -214,6 +226,7 @@ def share_bot(update: Update, context: CallbackContext) -> None:
 
 @admin_only
 def random_no_trailers_movie(update: Update, context: CallbackContext) -> None:
+    not_movie_data(update, context)
     movie = Movie.objects.filter(has_trailer=False).order_by("?").first()
     if movie:
         # Assuming `reply_video` sends a video by file ID
