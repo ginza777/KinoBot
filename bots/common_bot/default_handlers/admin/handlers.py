@@ -1,6 +1,7 @@
 import datetime
 import os
 import subprocess
+import time
 from datetime import timedelta
 
 from django.conf import settings
@@ -50,6 +51,9 @@ def backup_db(update: Update, context: CallbackContext) -> None:
     try:
         # Attempt to perform database backup
         dump_file, metadata, error = backup_database()
+
+        time.sleep(10)
+
         if error is not None:
             update.message.reply_text(f"Failed to perform database backup. Error:\n{error}")
         if dump_file:
