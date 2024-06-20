@@ -28,7 +28,7 @@ class TelegramBotWebhookView(View):
     # WARNING: if fail - Telegram webhook will be delivered again.
     # Can be fixed with async celery task execution
     def post(self, request, bot_token, *args, **kwargs):
-        if not  settings.DEBUG:
+        if settings.DEBUG:
             process_telegram_event(json.loads(request.body), bot_token)
         else:
             # Process Telegram event in Celery worker (async)
