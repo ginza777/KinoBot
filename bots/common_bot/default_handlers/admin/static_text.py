@@ -7,6 +7,7 @@ secret_admin_commands = (f"⚠️ Secret Admin commands\n"
                          f"• /admin - Show admin info\n"
                          f"• /ask_location - Send location\n"
                          f"• /backup_db - Change secret level\n"
+                         f"• /random_no_trailers_movie"
                          )
 
 users_amount_stat = "<b>Users</b>: {user_count}\n" \
