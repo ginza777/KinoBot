@@ -19,7 +19,7 @@ def process_telegram_event(update_json, bot_token):
     bot = Bot(bot_token)
     print("update_json: ", update_json)
     update = Update.de_json(update_json, bot)
-    n_workers = 0 if settings.DEBUG else 8
+    n_workers = 4 if settings.DEBUG else 8
     dispatcher = setup_dispatcher(Dispatcher(bot, update_queue=None, workers=n_workers, use_context=True))
     dispatcher.process_update(update)
 
