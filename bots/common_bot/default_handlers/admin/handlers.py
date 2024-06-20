@@ -52,7 +52,7 @@ def backup_db(update: Update, context: CallbackContext) -> None:
         # Attempt to perform database backup
         dump_file, metadata, error = backup_database()
 
-        time.sleep(10)
+        time.sleep(3)
 
         if error is not None:
             update.message.reply_text(f"Failed to perform database backup. Error:\n{error}")
