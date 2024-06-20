@@ -79,7 +79,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 # Ma'lumotlar bazasi uchun asosiy sozlamalar
-if env.bool("SERVER", False):
+if env.bool("SERVER"):
     DATABASES = {
         "default": {
             "ENGINE": env.str("DB_ENGINE", "django.db.backends.postgresql"),
