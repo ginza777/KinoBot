@@ -1,4 +1,6 @@
 
+git pull
+
 
 sudo nginx -t
 sudo systemctl daemon-reload
