@@ -17,6 +17,7 @@ def get_bot_webhook_single(bot_token):
 def get_bot_info_single(bot_token):
     url = f"https://api.telegram.org/bot{bot_token}/getMe"
     response = requests.post(url)
+    url = f"https://api.telegram.org/bot{bot_token}/getWebhookInfo"
     return response.json().get("result").get("username"), response.status_code, url
 
 
