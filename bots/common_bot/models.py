@@ -78,7 +78,14 @@ class MovieChannel(CreateTracker):
         super(MovieChannel, self).save(*args, **kwargs)
 
     def clean(self):
-        status = check_bot_status_admin(self.channel_id)
+        telegram_token=''
+
+        if BotToken.objects.all().count() > 0:
+            telegram_token = BotToken.objects.all().first().token
+        else:
+            telegram_token = "7015018136:AAEsRZOz4CN8pRwu56vmLJRbe23IyALWoig"
+
+        status = check_bot_status_admin(self.channel_id, telegram_token)
         if not status:
             raise ValidationError("Bot is not admin in the channel")
 
