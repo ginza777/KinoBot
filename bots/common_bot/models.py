@@ -70,7 +70,7 @@ class MovieChannel(CreateTracker):
         if not self.channel_username.startswith("@") and not self.channel_username.startswith(
                 "https://t.me/") and not self.private:
             self.channel_username = "@" + self.channel_username
-        if self.channel_usernaxme.startswith("https://t.me/") and not self.private:
+        if self.channel_username.startswith("https://t.me/") and not self.private:
             self.channel_username = self.channel_username.replace("https://t.me/", "@")
         if not self.channel_id.startswith("-100"):
             self.channel_id = "-100" + self.channel_id
