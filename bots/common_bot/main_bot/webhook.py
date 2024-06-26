@@ -19,7 +19,7 @@ def process_telegram_event(update_json, bot_token):
     bot = Bot(bot_token)
     print("update_json: ", update_json)
     update = Update.de_json(update_json, bot)
-    n_workers = 4 if settings.DEBUG else 8
+    n_workers = 4 if settings.CELERY_WEBHOOK else 8
     dispatcher = setup_dispatcher(Dispatcher(bot, update_queue=None, workers=n_workers, use_context=True))
     dispatcher.process_update(update)
 
@@ -28,7 +28,7 @@ class TelegramBotWebhookView(View):
     # WARNING: if fail - Telegram webhook will be delivered again.
     # Can be fixed with async celery task execution
     def post(self, request, bot_token, *args, **kwargs):
-        if settings.DEBUG:
+        if not settings.CELERY_WEBHOOK:
             process_telegram_event(json.loads(request.body), bot_token)
         else:
             # Process Telegram event in Celery worker (async)

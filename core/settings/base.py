@@ -79,7 +79,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 # Ma'lumotlar bazasi uchun asosiy sozlamalar
-if env.bool("SERVER"):
+if env.bool("DATABASE_POSTGRESQL"):
     DATABASES = {
         "default": {
             "ENGINE": env.str("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
@@ -161,6 +161,7 @@ CELERY_TIMEZONE = 'Asia/Tashkent'
 BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 WEBHOOK_URL = env.str("WEBHOOK_URL")
+CELERY_WEBHOOK = env.str("CELERY_WEBHOOK")
 
 CELERY_BEAT_SCHEDULE = {
 
