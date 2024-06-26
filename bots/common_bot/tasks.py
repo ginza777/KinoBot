@@ -6,23 +6,26 @@ import time
 from typing import Union, List, Optional, Dict
 
 import telegram
+from celery.utils.log import get_task_logger
 
 from core.celery import app
-from celery.utils.log import get_task_logger
 from .default_handlers.broadcast_message.utils import send_one_message, from_celery_entities_to_entities, \
     from_celery_markup_to_markup
+from celery import shared_task, Celery
+
+from .management.commands.set_webhook import set_webhook
 
 logger = get_task_logger(__name__)
 
 
 @app.task(ignore_result=True)
 def broadcast_message(
-    user_ids: List[Union[str, int]],
-    text: str,
-    entities: Optional[List[Dict]] = None,
-    reply_markup: Optional[List[List[Dict]]] = None,
-    sleep_between: float = 0.4,
-    parse_mode=telegram.ParseMode.HTML,
+        user_ids: List[Union[str, int]],
+        text: str,
+        entities: Optional[List[Dict]] = None,
+        reply_markup: Optional[List[List[Dict]]] = None,
+        sleep_between: float = 0.4,
+        parse_mode=telegram.ParseMode.HTML,
 ) -> None:
     """ It's used to broadcast message to big amount of users """
     logger.info(f"Going to send message: '{text}' to {len(user_ids)} users")
@@ -46,3 +49,7 @@ def broadcast_message(
     logger.info("Broadcast finished!")
 
 
+
+@shared_task()
+def set_webhook_task():
+    set_webhook()

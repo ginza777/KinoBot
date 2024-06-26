@@ -1,8 +1,8 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 import environ
-from celery.schedules import crontab
 
 from core.jazzmin_conf import *  # noqa
 
@@ -164,5 +164,9 @@ WEBHOOK_URL = env.str("WEBHOOK_URL")
 CELERY_WEBHOOK = env.str("CELERY_WEBHOOK")
 
 CELERY_BEAT_SCHEDULE = {
+    'set-webhook-task': {
+        'task': 'bots.tasks.set_webhook_task',
+        'schedule': timedelta(days=1),
 
+    }
 }
