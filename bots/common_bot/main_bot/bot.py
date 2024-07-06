@@ -3,7 +3,6 @@ from django.conf import settings
 from . import models
 from ..apps import BotConfig
 
-
 class Bot_settings:
     webhook_url = f"{settings.WEBHOOK_URL}/{BotConfig.app_url}/bot/"
 

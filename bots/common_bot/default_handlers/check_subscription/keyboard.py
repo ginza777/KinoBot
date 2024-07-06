@@ -1,13 +1,8 @@
-from telegram import Bot
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardRemove
 
-
+from bots.common_bot.bot import bot_dp
 from . import static_text
 from ...main_bot.models import Channel
-from ...main_bot.bot import Bot_settings
-
-
-
 
 
 def keyboard_check_subscription_channel():
@@ -29,7 +24,8 @@ def keyboard_checked_subscription_channel(user_id):
     is_subscribed = True
 
     for idx, channel in enumerate(channels):
-        subscribed = not Bot_settings.bot.get_chat_member(chat_id=channel.channel_id, user_id=user_id).status == 'left'
+
+        subscribed = not bot_dp.get_chat_member(chat_id=channel.channel_id, user_id=user_id).status == 'left'
         subscription_status = "✅" if subscribed else "❌"
         buttons.append([InlineKeyboardButton(text=f"channel {idx + 1} {subscription_status}",
                                              url=f"https://t.me/{channel.channel_username}")])
