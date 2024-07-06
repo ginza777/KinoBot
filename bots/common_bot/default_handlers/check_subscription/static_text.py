@@ -1,4 +1,4 @@
-full_permission="✅ You have full permission to use the bot"
+full_permission="✅ You have full permission to use the bot \n\n tap to /start"
 unsubscribed="❌ Please subscribe to all channels to use the bot"
 succes_subscribe="✅ Successfully subscribed"
 check_subscribing="check subscribing ✅"

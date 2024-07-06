@@ -46,7 +46,7 @@ def setup_dispatcher(dp):
     dp.add_handler(MessageHandler(Filters.video, views.get_movie_from_admin))
     dp.add_handler(CommandHandler("random_no_trailers_movie", views.random_no_trailers_movie))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex('^\d+$'), views.get_movie_by_code))
-    # dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🔍 Search Movies"), views.search_movies))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🔍 Search Movies"), views.random_no_trailers_movie))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎲 Random Movie"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 1 Movies"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Movies"), views.top_movies))
