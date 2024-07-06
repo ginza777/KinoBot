@@ -36,6 +36,14 @@ def make_movie_share_keyboard() -> InlineKeyboardMarkup:
     ]]
     return InlineKeyboardMarkup(buttons)
 
+def movie_share_keyboard() -> InlineKeyboardMarkup:
+    share_bot = f"Share this Bot "
+    text = """🍀Full Hd ,4k kinolar 🎥\n🍀Saralangan top dagi kinolar🍿\n🍀Kino kodini yuboring va kinoni yuklab oling\n🍀Barcha kinolar saralangan ,trenddagi kinolar\n🍀Kino kodini yuboring va kinoni yuklab oling\n🍀Botni do'stlaringiz bilan ulashing\n🍀Bot uchun havola :@uzbek_kino_time_bot\n🍀Kanalimiz : @uzbek_kino_time\n"""
+    buttons = [[
+        InlineKeyboardButton(share_bot, switch_inline_query=f"\n\n{text}")
+    ]]
+    return InlineKeyboardMarkup(buttons)
+
 
 def default_keyboard() -> ReplyKeyboardMarkup:
     buttons = [

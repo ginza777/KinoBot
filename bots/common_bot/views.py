@@ -9,7 +9,7 @@ from .default_handlers.onboarding import static_text
 from .default_handlers.utils.decorators import admin_only
 from .filter_caption import clean_caption
 from .keyboard.keyboard import make_movie_share_keyboard, default_keyboard, make_movie_share_keyboard_with_code, \
-    start_with_code_keyboard
+    start_with_code_keyboard, movie_share_keyboard
 from .main_bot.bot import Bot_settings
 from .models import User, Movie, MovieTrailer, SuperSettings
 
@@ -17,7 +17,6 @@ from .models import User, Movie, MovieTrailer, SuperSettings
 def not_movie_data(update: Update, context: CallbackContext):
     if not Movie.objects.exists():
         return update.message.reply_text("Bazada hech qanday kino topilmadi")
-
 
 
 def movie_channel_username():
@@ -221,7 +220,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
 @check_subscription_channel_always
 def share_bot(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Share this bot with your friends and family 🥰🥰🥰",
-                              reply_markup=make_movie_share_keyboard())
+                              reply_markup=movie_share_keyboard())
 
 
 @admin_only
