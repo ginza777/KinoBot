@@ -28,13 +28,16 @@ class TelegramBotWebhookView(View):
     # WARNING: if fail - Telegram webhook will be delivered again.
     # Can be fixed with async celery task execution
     def post(self, request, bot_token, *args, **kwargs):
-        if not settings.CELERY_WEBHOOK:
-            process_telegram_event(json.loads(request.body), bot_token)
-        else:
+        print(settings.CELERY_WEBHOOK)
+        if settings.CELERY_WEBHOOK==True:
+            print("if")
             # Process Telegram event in Celery worker (async)
             # Don't forget to run it and & Redis (message broker for Celery)!
             # Locally, You can run all of these services via docker-compose.yml
-            process_telegram_event.delay(json.loads(request.body),bot_token)
+            process_telegram_event.delay(json.loads(request.body), bot_token)
+        if settings.CELERY_WEBHOOK==False:
+            print("else")
+            process_telegram_event(json.loads(request.body), bot_token)
 
         # e.g. remove buttons, typing event
         return JsonResponse({"ok": "POST request processed"})
