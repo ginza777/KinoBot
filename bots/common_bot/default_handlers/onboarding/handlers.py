@@ -5,7 +5,8 @@ from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
 from . import static_text
-from .keyboards import make_keyboard_for_start_command, make_keyboard_for_help_command, make_keyboard_for_about_command
+from .keyboards import make_keyboard_for_start_command, make_keyboard_for_help_command, make_keyboard_for_about_command, \
+    make_keyboard_for_about_command_admin
 from ..utils.info import extract_user_data_from_update
 from ...default_handlers.check_subscription.handlers import check_subscription_channel_always
 from ...models import User
@@ -52,8 +53,15 @@ def help(update: Update, context: CallbackContext) -> None:
 @check_subscription_channel_always
 def about(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
+
     if created:
         text = static_text.start_created.format(first_name=u.first_name)
+    if u.is_admin:
+        text = static_text.start_not_created.format(first_name=u.first_name)
+
+        update.message.reply_text(text + static_text.about_message, parse_mode='HTML',
+                                  reply_markup=make_keyboard_for_about_command_admin())
+
     else:
         text = static_text.start_not_created.format(first_name=u.first_name)
 

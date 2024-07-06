@@ -17,6 +17,16 @@ def make_keyboard_for_start_command() -> InlineKeyboardMarkup:
 
 def make_keyboard_for_about_command() -> InlineKeyboardMarkup:
     buttons = [[
+        # InlineKeyboardButton(github_button_text, url="https://github.com/GinzaPro/CommonBot.git"),
+        # InlineKeyboardButton(secret_level_button_text, callback_data=f'{SECRET_LEVEL_BUTTON}'),
+        InlineKeyboardButton(admin_button_text, url="https://t.me/+998336443434")
+    ]]
+
+    return InlineKeyboardMarkup(buttons)
+
+
+def make_keyboard_for_about_command_admin() -> InlineKeyboardMarkup:
+    buttons = [[
         InlineKeyboardButton(github_button_text, url="https://github.com/GinzaPro/CommonBot.git"),
         InlineKeyboardButton(secret_level_button_text, callback_data=f'{SECRET_LEVEL_BUTTON}'),
         InlineKeyboardButton(admin_button_text, url="https://t.me/+998336443434")
