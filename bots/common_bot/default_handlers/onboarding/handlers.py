@@ -62,7 +62,7 @@ def about(update: Update, context: CallbackContext) -> None:
         update.message.reply_text(text + static_text.about_message, parse_mode='HTML',
                                   reply_markup=make_keyboard_for_about_command_admin())
 
-    elif not u.is_admin:
+    if not u.is_admin:
         text = static_text.start_not_created.format(first_name=u.first_name)
 
     update.message.reply_text(text + static_text.about_message, parse_mode='HTML',
