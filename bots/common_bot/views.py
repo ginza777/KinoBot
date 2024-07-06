@@ -17,7 +17,7 @@ from .models import User, Movie, MovieTrailer, SuperSettings
 def not_movie_data(update: Update, context: CallbackContext):
     if not Movie.objects.exists():
         return update.message.reply_text("Bazada hech qanday kino topilmadi")
-    return update.message.reply_text("Qandaydir xato sodir bo'ldi. Iltimos qayta urinib ko'ring 🥺😢🙃")
+
 
 
 def movie_channel_username():
