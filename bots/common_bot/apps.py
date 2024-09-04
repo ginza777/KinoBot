@@ -7,6 +7,6 @@ class BotConfig(AppConfig):
     app_url = name.split('.')[1]
 
 
-    def ready(self):
-        # Run the set_webhook management command
-        call_command('set_webhook')
+    # def ready(self):
+    #     # Run the set_webhook management command
+    #     call_command('set_webhook')
