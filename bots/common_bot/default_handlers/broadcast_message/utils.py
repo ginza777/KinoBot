@@ -44,6 +44,8 @@ def from_celery_entities_to_entities(celery_entities: Optional[List[Dict]] = Non
     return entities
 
 
+
+
 def send_one_message(
         user_id: Union[str, int],
         text: str,

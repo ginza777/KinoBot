@@ -47,7 +47,7 @@ def movie_share_keyboard() -> InlineKeyboardMarkup:
 
 def default_keyboard() -> ReplyKeyboardMarkup:
     buttons = [
-        [KeyboardButton("🔍 Search Movies"), KeyboardButton("🎲 Random Movie")],
+        # [KeyboardButton("🔍 Search Movies"), KeyboardButton("🎲 Random Movie")],
         # Top 3 movies
         [KeyboardButton("🎥 Top 1 Movies"), KeyboardButton("🎥 Top 3 Movies")],
         # Random movie
