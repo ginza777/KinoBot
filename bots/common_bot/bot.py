@@ -1,7 +1,7 @@
 from telegram.bot import Bot
 from .models import BotToken
 from django.db import OperationalError, DatabaseError, ProgrammingError
-
+telegram_token=''
 try:
     if BotToken.objects.exists():
         telegram_token = BotToken.objects.first().token
