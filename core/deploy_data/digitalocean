@@ -99,13 +99,13 @@ openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/pr
 openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/fullchain.pem -pkeyopt rsa_keygen_bits:2048
 
 
-sudo nano /etc/nginx/sites-available/admin.sherzamon.cloud
+sudo nano /etc/nginx/sites-available/bot.sherzamon.cloud
 
 
 
 server {
     listen 80;
-    server_name admin.sherzamon.cloud;
+    server_name bot.sherzamon.cloud;
 
 
 
@@ -128,8 +128,8 @@ server {
 
 
 
-sudo ln -s /etc/nginx/sites-available/admin.sherzamon.cloud /etc/nginx/sites-enabled
-w
+sudo ln -s /etc/nginx/sites-available/bot.sherzamon.cloud /etc/nginx/sites-enabled
+
 journalctl -xeu nginx.service
 
 
@@ -139,7 +139,7 @@ journalctl -xeu nginx.service
 #certbot
 
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d admin.sherzamon.cloud
+sudo certbot --nginx -d bot.sherzamon.cloud
 sudo systemctl status certbot.timer
 sudo certbot renew --dry-run
 
