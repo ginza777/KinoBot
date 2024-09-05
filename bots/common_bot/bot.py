@@ -1,5 +1,5 @@
 from telegram.bot import Bot
-from .models import BotToken
+# from .models import BotToken
 from django.db import OperationalError, DatabaseError, ProgrammingError
 telegram_token = "7015018136:AAEsRZOz4CN8pRwu56vmLJRbe23IyALWoig"  # Default token
 #
