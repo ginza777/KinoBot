@@ -10,4 +10,4 @@ except (OperationalError, DatabaseError, ProgrammingError):
     # Ignore the error and continue using the default token if table doesn't exist or there's any error
     pass
 
-# bot_dp = Bot(telegram_token)
+bot_dp = Bot(telegram_token)
