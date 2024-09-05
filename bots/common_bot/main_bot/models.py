@@ -172,7 +172,7 @@ class BotToken(models.Model):
 
 def set_webhook_single(bot_token, webhook_url):
     url = (
-        f"https://api.telegram.org/bot{bot_token}/setWebhook?url={webhook_url}/{bot_token}"
+        f"https://api.telegram.org/bot{bot_token}/setWebhook?url={webhook_url}{bot_token}"
     )
     response = requests.post(url)
     return response
