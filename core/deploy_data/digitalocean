@@ -19,7 +19,7 @@ sudo apt install python3-venv python3-dev libpq-dev postgresql postgresql-contri
 
 sudo -u postgres psql
 
-CREATE DATABASE bot;
+CREATE DATABASE kinobot;
 CREATE USER sherzamon WITH PASSWORD 'sherzamon';
 ALTER USER sherzamon WITH PASSWORD  'sherzAmon2001A';
 ALTER ROLE postgres SET client_encoding TO 'utf8';
