@@ -20,14 +20,14 @@ sudo apt install python3-venv python3-dev libpq-dev postgresql postgresql-contri
 sudo -u postgres psql
 
 CREATE DATABASE bot;
-CREATE USER postgres WITH PASSWORD 'postgres';
-ALTER USER postgres WITH PASSWORD  'postgres';
+CREATE USER sherzamon WITH PASSWORD 'sherzamon';
+ALTER USER sherzamon WITH PASSWORD  'sherzAmon2001A';
 ALTER ROLE postgres SET client_encoding TO 'utf8';
 ALTER ROLE postgres SET default_transaction_isolation TO 'read committed';
 ALTER ROLE postgres SET timezone TO 'UTC';
-GRANT CREATE ON SCHEMA public TO postgres;
+GRANT CREATE ON SCHEMA public TO sherzamon;
 
-GRANT ALL PRIVILEGES ON DATABASE bot TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE bot TO sherzamon;
 \q
 
 
@@ -66,7 +66,7 @@ After=network.target
 User=root
 Group=www-data
 WorkingDirectory=/var/opt/CommonBot/KinoBot
-ExecStart=/var/opt/CommonBot//env/bin/gunicorn \
+ExecStart=/var/opt/CommonBot/env/bin/gunicorn \
           --access-logfile - \
           --workers 4 \
           --bind unix:/run/bot.sock \
@@ -99,13 +99,13 @@ openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/pr
 openssl genpkey -algorithm RSA -out /etc/letsencrypt/live/crm.sherzamon.cloud/fullchain.pem -pkeyopt rsa_keygen_bits:2048
 
 
-sudo nano /etc/nginx/sites-available/crm.sherzamon.cloud
+sudo nano /etc/nginx/sites-available/admin.sherzamon.cloud
 
 
 
 server {
     listen 80;
-    server_name crm.sherzamon.cloud;
+    server_name admin.sherzamon.cloud;
 
 
 
@@ -128,7 +128,7 @@ server {
 
 
 
-sudo ln -s /etc/nginx/sites-available/crm.sherzamon.cloud /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/admin.sherzamon.cloud /etc/nginx/sites-enabled
 w
 journalctl -xeu nginx.service
 
@@ -139,7 +139,7 @@ journalctl -xeu nginx.service
 #certbot
 
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d crm.sherzamon.cloud
+sudo certbot --nginx -d admin.sherzamon.cloud
 sudo systemctl status certbot.timer
 sudo certbot renew --dry-run
 
