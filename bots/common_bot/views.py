@@ -81,7 +81,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
 
     channel_username, movie_bot_username = movie_channel_username()
 
-    sign_text = f"\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾{channel_username}\n♥️ 🐾{movie_bot_username}"
+    sign_text = f"\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾@{channel_username}\n♥️ 🐾{movie_bot_username}"
     if video.duration <= 1200:
         if caption.isdigit():
             movie_code = int(caption)
@@ -101,7 +101,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     context.bot.send_video(
                         chat_id=update.message.chat_id,
                         video=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>To'liq kino</a>\n" + sign_text,
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
                         reply_markup=start_with_code_keyboard(bot_username, code=movie.code),
                         parse_mode=ParseMode.HTML
 
@@ -110,7 +110,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         bot=context.bot,
                         chat_id=get_trailer_chat_id(),
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>To'liq kino</a>\n" + sign_text,
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
                     )
 
                 else:
@@ -124,7 +124,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     context.bot.send_video(
                         chat_id=update.message.chat_id,
                         video=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
                         reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
                     )
 
@@ -133,7 +133,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         bot=context.bot,
                         chat_id=get_trailer_chat_id(),
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>To'liq kino</a>\n" + sign_text,
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
                     )
 
 
