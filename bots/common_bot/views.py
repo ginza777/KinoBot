@@ -1,6 +1,6 @@
 import random
 
-from telegram import Update
+from telegram import Update, ParseMode
 from telegram.ext import CallbackContext
 
 from .default_handlers.check_subscription.handlers import add_ask_subscribe_channel, check_subscription_channel_always
@@ -17,14 +17,13 @@ from telegram.error import TelegramError
 
 
 def send_video(bot, chat_id, video_file_id, caption):
-
-
     try:
         # Send the video
         bot.send_video(
             chat_id=chat_id,
             video=video_file_id,
             caption=caption,
+            parse_mode=ParseMode.HTML
         )
         print("Video sent successfully.")
         return "Video sent successfully."
@@ -107,9 +106,9 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     )
                     send_video(
                         bot=context.bot,
-                        chat_id=-1002080046544,
+                        chat_id=get_trailer_chat_id(),
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text + f"\nhttps://t.me/{context.bot.username}?start={movie.code}",
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>To'liq kino</a>\n" + sign_text,
                     )
 
                 else:
@@ -132,7 +131,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         bot=context.bot,
                         chat_id=get_trailer_chat_id(),
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text + f"\nhttps://t.me/{context.bot.username}?start={movie.code}",
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>To'liq kino</a>\n" + sign_text,
                     )
 
 
