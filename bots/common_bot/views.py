@@ -88,6 +88,10 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         )
                     except Exception as e:
                         print(f"Error sending video to the first chat: {e}")
+                        context.bot.send_message(
+                            chat_id=get_trailer_chat_id(),
+                            text="e"  # Replace with the text you want to send
+                        )
 
                     try:
                         # Second video send operation
@@ -99,6 +103,11 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         )
                     except Exception as e:
                         print(f"Error sending video to the second chat: {e}")
+                        context.bot.send_message(
+                            chat_id=get_trailer_chat_id(),
+                            text="e"  # Replace with the text you want to send
+                        )
+
                 else:
                     movie_trailer = MovieTrailer.objects.create(file_unique_id=video.file_unique_id,
                                                                 metadata=video.to_dict())
