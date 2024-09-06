@@ -101,7 +101,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     context.bot.send_video(
                         chat_id=update.message.chat_id,
                         video=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>To'liq kino</a>\n" + sign_text,
                         reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
                     )
                     send_video(
