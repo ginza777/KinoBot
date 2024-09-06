@@ -78,32 +78,62 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     movie_trailer.save()
                     movie.save()
                     update.message.reply_text("Trailer added to the movie successfully")
-                    context.bot.send_video(chat_id=update.message.chat_id, video=movie_trailer.metadata.get('file_id'),
-                                           caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
+                    try:
+                        # First video send operation
+                        context.bot.send_video(
+                            chat_id=update.message.chat_id,
+                            video=movie_trailer.metadata.get('file_id'),
+                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                            reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
+                        )
+                    except Exception as e:
+                        print(f"Error sending video to the first chat: {e}")
 
-                    context.bot.send_video(chat_id=-1002080046544, video=movie_trailer.metadata.get('file_id'),
-                                           caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
-
+                    try:
+                        # Second video send operation
+                        context.bot.send_video(
+                            chat_id=-1002080046544,
+                            video=movie_trailer.metadata.get('file_id'),
+                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                            reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
+                        )
+                    except Exception as e:
+                        print(f"Error sending video to the second chat: {e}")
                 else:
                     movie_trailer = MovieTrailer.objects.create(file_unique_id=video.file_unique_id,
                                                                 metadata=video.to_dict())
                     movie.trailer = movie_trailer
                     movie.save()
                     update.message.reply_text("New trailer added to the database successfully")
-                    context.bot.send_video(chat_id=update.message.chat_id, video=movie_trailer.metadata.get('file_id'),
-                                           caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
-                    context.bot.send_message(
-                        chat_id=get_trailer_chat_id(),
-                        text="Your additional text here1"  # Replace with the text you want to send
-                    )
-                    context.bot.send_video(chat_id=-1002080046544, video=movie_trailer.metadata.get('file_id'),
-                                           caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                                           reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
+                    try:
+                        # First video send operation
+                        context.bot.send_video(
+                            chat_id=update.message.chat_id,
+                            video=movie_trailer.metadata.get('file_id'),
+                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                            reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
+                        )
+                    except Exception as e:
+                        print(f"Error sending video to the first chat: {e}")
+                        context.bot.send_message(
+                            chat_id=get_trailer_chat_id(),
+                            text="e"  # Replace with the text you want to send
+                        )
 
-
+                    try:
+                        # Second video send operation
+                        context.bot.send_video(
+                            chat_id=-1002080046544,
+                            video=movie_trailer.metadata.get('file_id'),
+                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                            reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
+                        )
+                    except Exception as e:
+                        print(f"Error sending video to the second chat: {e}")
+                        context.bot.send_message(
+                            chat_id=get_trailer_chat_id(),
+                            text="e"  # Replace with the text you want to send
+                        )
 
 
 
