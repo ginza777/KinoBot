@@ -118,7 +118,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
 
             else:
                 context.bot.send_message(
-                    chat_id=get_trailer_chat_id(),
+                    chat_id=-1002080046544,
                     text="Your additional text here4"  # Replace with the text you want to send
                 )
                 update.message.reply_text(f"Movie not found with code {movie_code}")
