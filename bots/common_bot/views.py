@@ -90,7 +90,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         print(f"Error sending video to the first chat: {e}")
                         context.bot.send_message(
                             chat_id=update.message.chat_id,
-                            text="e"  # Replace with the text you want to send
+                            text=e  # Replace with the text you want to send
                         )
 
                     try:
@@ -105,7 +105,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         print(f"Error sending video to the second chat: {e}")
                         context.bot.send_message(
                             chat_id=-1002080046544,
-                            text="e"  # Replace with the text you want to send
+                            text=e  # Replace with the text you want to send
                         )
 
                 else:
@@ -126,7 +126,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         print(f"Error sending video to the first chat: {e}")
                         context.bot.send_message(
                             chat_id=update.message.chat_id,
-                            text="e"  # Replace with the text you want to send
+                            text=e  # Replace with the text you want to send
                         )
 
                     try:
@@ -141,7 +141,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         print(f"Error sending video to the second chat: {e}")
                         context.bot.send_message(
                             chat_id=-1002080046544,
-                            text="e"  # Replace with the text you want to send
+                            text=e  # Replace with the text you want to send
                         )
 
 
