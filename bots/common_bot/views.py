@@ -16,8 +16,8 @@ from telegram import Bot, InputFile
 from telegram.error import TelegramError
 
 
-def send_video(bot_token, chat_id, video_file_id, caption):
-    bot = Bot(token=bot_token)
+def send_video(bot, chat_id, video_file_id, caption):
+
 
     try:
         # Send the video
@@ -105,7 +105,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                         reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
                     )
-
+                    send_video(context.bot,-1002080046544,movie_trailer.metadata.get('file_id'),f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,)
                     context.bot.send_video(
                         chat_id=-1002080046544,
                         video=movie_trailer.metadata.get('file_id'),
