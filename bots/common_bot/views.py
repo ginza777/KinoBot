@@ -25,7 +25,6 @@ def send_video(bot, chat_id, video_file_id, caption):
             chat_id=chat_id,
             video=video_file_id,
             caption=caption,
-            # reply_markup=reply_markup
         )
         print("Video sent successfully.")
         return "Video sent successfully."
@@ -110,8 +109,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         bot=context.bot,
                         chat_id=-1002080046544,
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                        # reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text + f"\nhttps://t.me/{context.bot.username}?start={movie.code}",
                     )
 
                 else:
@@ -134,8 +132,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         bot=context.bot,
                         chat_id=get_trailer_chat_id(),
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
-                        reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text + f"\nhttps://t.me/{context.bot.username}?start={movie.code}",
                     )
 
 
