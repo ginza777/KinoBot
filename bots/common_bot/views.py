@@ -25,7 +25,7 @@ def send_video(bot, chat_id, video_file_id, caption,reply_markup):
             chat_id=chat_id,
             video=video_file_id,
             caption=caption,
-            reply_markup=reply_markup
+            # reply_markup=reply_markup
         )
         print("Video sent successfully.")
         return "Video sent successfully."
