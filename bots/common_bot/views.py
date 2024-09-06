@@ -16,7 +16,7 @@ from telegram import Bot, InputFile
 from telegram.error import TelegramError
 
 
-def send_video(bot, chat_id, video_file_id, caption):
+def send_video(bot, chat_id, video_file_id, caption,reply_markup):
 
 
     try:
@@ -24,7 +24,8 @@ def send_video(bot, chat_id, video_file_id, caption):
         bot.send_video(
             chat_id=chat_id,
             video=video_file_id,
-            caption=caption
+            caption=caption,
+            reply_markup=reply_markup
         )
         print("Video sent successfully.")
         return "Video sent successfully."
@@ -47,7 +48,7 @@ def movie_channel_username():
 def get_trailer_chat_id():
     if SuperSettings.objects.exists():
         return SuperSettings.objects.last().trailer_chat_id
-    return "-1002080046544"
+    return -1002080046544
 
 
 @add_ask_subscribe_channel
@@ -105,10 +106,10 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                         reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
                     )
-                    send_video(context.bot,-1002080046544,movie_trailer.metadata.get('file_id'),f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,)
-                    context.bot.send_video(
-                        chat_id=-1002080046544,
-                        video=movie_trailer.metadata.get('file_id'),
+                    send_video(
+                        bot=context.bot,
+                        chat_id=get_trailer_chat_id,
+                        video_file_id=movie_trailer.metadata.get('file_id'),
                         caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                         reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
                     )
@@ -129,12 +130,14 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     )
 
                     # Second video send operation
-                    context.bot.send_video(
-                        chat_id=-1002080046544,
-                        video=movie_trailer.metadata.get('file_id'),
+                    send_video(
+                        bot=context.bot,
+                        chat_id=get_trailer_chat_id,
+                        video_file_id=movie_trailer.metadata.get('file_id'),
                         caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                         reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
                     )
+
 
             else:
 
