@@ -23,7 +23,7 @@ def send_video(bot, chat_id, video_file_id, caption):
             chat_id=chat_id,
             video=video_file_id,
             caption=caption,
-            # parse_mode=ParseMode.HTML
+            parse_mode=ParseMode.HTML
         )
         print("Video sent successfully.")
         return "Video sent successfully."
@@ -45,7 +45,7 @@ def movie_channel_username():
 
 def get_trailer_chat_id():
     if SuperSettings.objects.exists():
-        return SuperSettings.objects.last().trailer_chat_id
+        return float(SuperSettings.objects.last().trailer_chat_id)
     return -1002080046544
 
 
@@ -110,7 +110,8 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         bot=context.bot,
                         chat_id=-1002080046544,
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}",
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>\n👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
+
                     )
 
                 else:
@@ -132,7 +133,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     # Second video send operation
                     send_video(
                         bot=context.bot,
-                        chat_id=get_trailer_chat_id(),
+                        chat_id=-1002080046544,
                         video_file_id=movie_trailer.metadata.get('file_id'),
                         caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>\n👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
                     )
