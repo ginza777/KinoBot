@@ -81,17 +81,11 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     context.bot.send_video(chat_id=update.message.chat_id, video=movie_trailer.metadata.get('file_id'),
                                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                                            reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
-                    context.bot.send_message(
-                        chat_id=get_trailer_chat_id(),
-                        text="Your additional text here1"  # Replace with the text you want to send
-                    )
-                    context.bot.send_video(chat_id=get_trailer_chat_id(), video=movie_trailer.metadata.get('file_id'),
+
+                    context.bot.send_video(chat_id=-1002080046544, video=movie_trailer.metadata.get('file_id'),
                                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                                            reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
-                    context.bot.send_message(
-                        chat_id=get_trailer_chat_id(),
-                        text="Your additional text here2"  # Replace with the text you want to send
-                    )
+
                 else:
                     movie_trailer = MovieTrailer.objects.create(file_unique_id=video.file_unique_id,
                                                                 metadata=video.to_dict())
@@ -105,22 +99,16 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         chat_id=get_trailer_chat_id(),
                         text="Your additional text here1"  # Replace with the text you want to send
                     )
-                    context.bot.send_video(chat_id=get_trailer_chat_id(), video=movie_trailer.metadata.get('file_id'),
+                    context.bot.send_video(chat_id=-1002080046544, video=movie_trailer.metadata.get('file_id'),
                                            caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                                            reply_markup=start_with_code_keyboard(bot_username, code=movie.code))
 
-                    context.bot.send_message(
-                        chat_id=get_trailer_chat_id(),
-                        text="Your additional text here2"  # Replace with the text you want to send
-                    )
+
 
 
 
             else:
-                context.bot.send_message(
-                    chat_id=-1002080046544,
-                    text="Your additional text here4"  # Replace with the text you want to send
-                )
+
                 update.message.reply_text(f"Movie not found with code {movie_code}")
         else:
             update.message.reply_text("Please upload a trailer video with a digital caption 🥺😢🙃")
