@@ -23,7 +23,7 @@ def send_video(bot, chat_id, video_file_id, caption):
             chat_id=chat_id,
             video=video_file_id,
             caption=caption,
-            parse_mode=ParseMode.HTML
+            # parse_mode=ParseMode.HTML
         )
         print("Video sent successfully.")
         return "Video sent successfully."
