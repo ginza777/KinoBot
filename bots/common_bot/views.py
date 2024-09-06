@@ -108,9 +108,9 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     )
                     send_video(
                         bot=context.bot,
-                        chat_id=get_trailer_chat_id(),
+                        chat_id=-1002080046544,
                         video_file_id=movie_trailer.metadata.get('file_id'),
-                        caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
+                        caption=f"Kino kodi: {movie.code}\n{movie.caption}",
                     )
 
                 else:
