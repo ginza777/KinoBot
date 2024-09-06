@@ -82,7 +82,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         # First video send operation
                         context.bot.send_video(
                             # chat_id=update.message.chat_id,
-                            chat_id=1002080046544,
+                            chat_id=-1002080046544,
                             video=movie_trailer.metadata.get('file_id'),
                             caption=f"Kino kodi: {movie.code}\n{movie.caption}" + sign_text,
                             reply_markup=start_with_code_keyboard(bot_username, code=movie.code)
@@ -90,7 +90,8 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     except Exception as e:
                         print(f"Error sending video to the first chat: {e}")
                         context.bot.send_message(
-                            chat_id=update.message.chat_id,
+                            # chat_id=update.message.chat_id,
+                            chat_id=-1002080046544,
                             text=e  # Replace with the text you want to send
                         )
 
