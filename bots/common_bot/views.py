@@ -89,7 +89,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     except Exception as e:
                         print(f"Error sending video to the first chat: {e}")
                         context.bot.send_message(
-                            chat_id=get_trailer_chat_id(),
+                            chat_id=update.message.chat_id,
                             text="e"  # Replace with the text you want to send
                         )
 
@@ -104,7 +104,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     except Exception as e:
                         print(f"Error sending video to the second chat: {e}")
                         context.bot.send_message(
-                            chat_id=get_trailer_chat_id(),
+                            chat_id=-1002080046544,
                             text="e"  # Replace with the text you want to send
                         )
 
@@ -125,7 +125,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     except Exception as e:
                         print(f"Error sending video to the first chat: {e}")
                         context.bot.send_message(
-                            chat_id=get_trailer_chat_id(),
+                            chat_id=update.message.chat_id,
                             text="e"  # Replace with the text you want to send
                         )
 
@@ -140,7 +140,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     except Exception as e:
                         print(f"Error sending video to the second chat: {e}")
                         context.bot.send_message(
-                            chat_id=get_trailer_chat_id(),
+                            chat_id=-1002080046544,
                             text="e"  # Replace with the text you want to send
                         )
 
