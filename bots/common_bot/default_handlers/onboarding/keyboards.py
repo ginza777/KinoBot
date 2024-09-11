@@ -29,7 +29,7 @@ def make_keyboard_for_about_command_admin() -> InlineKeyboardMarkup:
     buttons = [[
         InlineKeyboardButton(github_button_text, url="https://github.com/GinzaPro/CommonBot.git"),
         InlineKeyboardButton(secret_level_button_text, callback_data=f'{SECRET_LEVEL_BUTTON}'),
-        InlineKeyboardButton(admin_button_text, url="https://t.me/+998336443434")
+        InlineKeyboardButton(admin_button_text, url="https://t.me/sherzamon_m")
     ]]
 
     return InlineKeyboardMarkup(buttons)
