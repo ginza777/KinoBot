@@ -22,7 +22,7 @@ class ChannelAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ["id",
+    list_display = [
         'user_id', 'username', 'first_name', 'last_name',
         'language_code', 'deep_link', "is_blocked_bot","created_at","updated_at"
     ]
