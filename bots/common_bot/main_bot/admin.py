@@ -22,9 +22,9 @@ class ChannelAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = [
+    list_display = ["id",
         'user_id', 'username', 'first_name', 'last_name',
-        'language_code', 'deep_link', "is_blocked_bot",
+        'language_code', 'deep_link', "is_blocked_bot","created_at","updated_at"
     ]
     list_filter = ["is_blocked_bot", ]
     search_fields = ('username', 'user_id')
