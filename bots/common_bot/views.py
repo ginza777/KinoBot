@@ -277,7 +277,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
-                                                                                        bot_username=context.bot.username)
+                                                                                        bot_username=context.bot.username,lang=lang)
                                        )
 
 
