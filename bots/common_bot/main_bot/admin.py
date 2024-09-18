@@ -24,7 +24,7 @@ class ChannelAdmin(admin.ModelAdmin):
 class UserAdmin(admin.ModelAdmin):
     list_display = [
         'user_id', 'username', 'first_name', 'last_name',
-        'language_code', 'deep_link', "is_blocked_bot","created_at","updated_at"
+        'language_code','selected_language', 'deep_link', "is_blocked_bot","created_at","updated_at"
     ]
     list_filter = ["is_blocked_bot", ]
     search_fields = ('username', 'user_id')
