@@ -5,7 +5,7 @@ from telegram import MessageEntity, InlineKeyboardButton, InlineKeyboardMarkup
 
 from ...main_bot.bot import Bot_settings
 from ...models import User
-TELEGRAM_TOKEN = "7015018136:AAEsRZOz4CN8pRwu56vmLJRbe23IyALWoig"
+TELEGRAM_TOKEN = "7015018136:AAG6-dBJZaeoOzZCKeOJUGKYC7PKfRwKRik"
 
 
 
