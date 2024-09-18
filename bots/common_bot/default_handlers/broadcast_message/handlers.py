@@ -46,14 +46,22 @@ def broadcast_command_with_message(update: Update, context: CallbackContext):
             )
 
 
-@admin_only
+
 def broadcast_decision_handler(update: Update, context: CallbackContext) -> None:
+    u, created = User.get_user_and_created(update, context)
+    if not u.is_admin:
+        update.callback_query.answer("You are not an admin!")
+        return
+
+
+    print(100 * '*')
     # callback_data: CONFIRM_DECLINE_BROADCAST variable from manage_data.py
     """ Entered /broadcast <some_text>.
         Shows text in HTML style with two buttons:
         Confirm and Decline
     """
     broadcast_decision = update.callback_query.data[len(CONFIRM_DECLINE_BROADCAST):]
+    print(f"\n{100*'*'}\n\n{broadcast_decision}")
 
     entities_for_celery = update.callback_query.message.to_dict().get('entities')
     entities, text = update.callback_query.message.entities, update.callback_query.message.text

@@ -39,6 +39,12 @@ def setup_dispatcher(dp):
         fallbacks=fallbacks,
         name="conversationbot",
     )
+
+
+    dp.add_handler(
+        CallbackQueryHandler(broadcast_handlers.broadcast_decision_handler, pattern=f"^{CONFIRM_DECLINE_BROADCAST}")
+    )
+
     dp.add_handler(conversation_handler)
     dp.add_handler(MessageHandler(Filters.update.channel_posts, onboarding_handlers.ignore_updates))
     dp.add_handler(MessageHandler(Filters.group, onboarding_handlers.ignore_updates))
@@ -103,9 +109,7 @@ def setup_dispatcher(dp):
     # secret level
     dp.add_handler(CallbackQueryHandler(onboarding_handlers.secret_level, pattern=f"^{SECRET_LEVEL_BUTTON}"))
 
-    dp.add_handler(
-        CallbackQueryHandler(broadcast_handlers.broadcast_decision_handler, pattern=f"^{CONFIRM_DECLINE_BROADCAST}")
-    )
+
 
     # about help
     dp.add_handler(CommandHandler("help", onboarding_handlers.help))
