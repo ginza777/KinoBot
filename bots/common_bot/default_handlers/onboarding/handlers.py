@@ -42,30 +42,32 @@ def secret_level(update: Update, context: CallbackContext) -> None:
 
 def help(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
+    lang=u.selected_language
     if created:
         text = static_text.start_created.format(first_name=u.first_name)
     else:
-        text = static_text.start_not_created.format(first_name=u.first_name)
-    update.message.reply_text(text + static_text.help_message, parse_mode='HTML',
+        text = static_text.start_not_created[lang].format(first_name=u.first_name)
+    update.message.reply_text(text + static_text.help_message[lang], parse_mode='HTML',
                               reply_markup=make_keyboard_for_help_command())
 
 
 @check_subscription_channel_always
 def about(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
+    lang=u.selected_language
 
     if created:
         text = static_text.start_created.format(first_name=u.first_name)
     if u.is_admin:
-        text = static_text.start_not_created.format(first_name=u.first_name)
+        text = static_text.start_not_created[lang].format(first_name=u.first_name)
 
-        update.message.reply_text(text + static_text.about_message, parse_mode='HTML',
+        update.message.reply_text(text + static_text.about_message[lang], parse_mode='HTML',
                                   reply_markup=make_keyboard_for_about_command_admin())
 
     if not u.is_admin:
-        text = static_text.start_not_created.format(first_name=u.first_name)
+        text = static_text.start_not_created[lang].format(first_name=u.first_name)
 
-        update.message.reply_text(text + static_text.about_message, parse_mode='HTML',
+        update.message.reply_text(text + static_text.about_message[lang], parse_mode='HTML',
                               reply_markup=make_keyboard_for_about_command())
 
 

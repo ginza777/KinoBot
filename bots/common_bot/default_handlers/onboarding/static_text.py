@@ -1,5 +1,7 @@
 start_created = "Sup, {first_name}!"
 
+
+
 start_not_created = {
     "uz": "Xush kelibsiz, {first_name}!",
     "ru": "Добро пожаловать, {first_name}!",

@@ -59,14 +59,14 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
             get_movie_by_code(update, context)
             return
 
-    lang="en"
+    lang = "en"
 
     if u.selected_language and u.selected_language is not 'null':
         lang = u.selected_language
     if u.selected_language is 'null':
         u.selected_language = u.language_code
         u.save()
-        lang=u.selected_language
+        lang = u.selected_language
 
     if created:
         text = static_text.start_created[lang].format(first_name=u.first_name)
@@ -175,7 +175,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
 @check_subscription_channel_always
 def get_movie_by_code(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
-    lang=u.selected_language
+    lang = u.selected_language
     not_movie_data(update, context)
     sign_text = "\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾@uzbek_kino_time\n♥️ 🐾@uzbek_kino_time_bot"
     bot_username = context.bot.username
@@ -236,7 +236,7 @@ def search_movies(update: Update, context: CallbackContext) -> None:
 @check_subscription_channel_always
 def top_movies(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
-    lang=u.selected_language
+    lang = u.selected_language
     not_movie_data(update, context)
     if update and update.message and update.message.text == "🎲 Random Movie":
         movie = Movie.objects.order_by("?").first()
@@ -280,7 +280,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
 @check_subscription_channel_always
 def share_bot(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
-    lang=u.selected_language
+    lang = u.selected_language
     update.message.reply_text(static_text.share_bot_text[lang],
                               reply_markup=movie_share_keyboard())
 
