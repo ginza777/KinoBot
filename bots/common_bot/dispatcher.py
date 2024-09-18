@@ -77,6 +77,11 @@ def setup_dispatcher(dp):
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 О_нас"), onboarding_handlers.about))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 Biz haqimizda"), onboarding_handlers.about))
 
+
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^перезапуск"), views.start))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^restart"), views.start))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^boshlash"), views.start))
+
     """
     Adding handlers for events from Telegram
     """

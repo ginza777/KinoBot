@@ -114,3 +114,17 @@ def default_keyboard(lang) -> ReplyKeyboardMarkup:
 
     ]
     return ReplyKeyboardMarkup(buttons, resize_keyboard=True)
+
+
+def restart_keyboard(lang) -> ReplyKeyboardMarkup:
+    text={
+        "uz":"boshlash",
+        "en":"restart",
+        "ru":"перезапуск"
+    }
+
+    buttons = [
+        [KeyboardButton(text[lang])]
+    ]
+
+    return ReplyKeyboardMarkup(buttons, resize_keyboard=True)
