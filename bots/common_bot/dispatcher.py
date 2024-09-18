@@ -53,12 +53,12 @@ def setup_dispatcher(dp):
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎲 Random Movie"), views.top_movies))
 
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 1 Kino"), views.top_movies))
-    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 1 фильмов"), views.top_movies))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Топ 1 фильмов"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 1 Movies"), views.top_movies))
 
 
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Kinolar"), views.top_movies))
-    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Фильмы"), views.top_movies))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Топ 3 Фильмы"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Movies"), views.top_movies))
 
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🌍 Change Language"), language_handlers.ask_language))
@@ -74,7 +74,7 @@ def setup_dispatcher(dp):
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📤 Botni ulashish"), views.share_bot))
 
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 About Us"), onboarding_handlers.about))
-    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 O_HAC"), onboarding_handlers.about))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 О_нас"), onboarding_handlers.about))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 Biz haqimizda"), onboarding_handlers.about))
 
     """

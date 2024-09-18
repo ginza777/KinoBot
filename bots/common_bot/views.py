@@ -243,7 +243,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
     lang = u.selected_language
     not_movie_data(update, context)
-    if update and update.message and update.message.text == "🎲 Random Movie":
+    if update and update.message and update.message.text == "🎲 Random Movie" or update.message.text == "🎲 Random Kino" or update.message.text == "🎲 Случайный фильм":
         movie = Movie.objects.order_by("?").first()
         if movie:
             movie.view_count += 1
@@ -257,7 +257,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
                                                                                         bot_username=context.bot.username,
                                                                                         lang=lang)
                                        )
-    if update and update.message and update.message.text == "🎥 Top 1 Movies":
+    if update and update.message and update.message.text == "🎥 Top 1 Movies" or update.message.text == "🎥 Top 1 Kino" or update.message.text == "🎥 Топ 1 фильмов":
         movies = Movie.objects.order_by('-view_count')[:1]
         for movie in movies:
             # Assuming `reply_video` sends a video by file ID
@@ -271,7 +271,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
 
                                        )
 
-    if update and update.message and update.message.text == "🎥 Top 3 Movies":
+    if update and update.message and update.message.text == "🎥 Top 3 Movies" or update.message.text == "🎥 Top 3 Kinolar" or update.message.text == "🎥 Топ 3 Фильмы":
         movies = Movie.objects.order_by('-view_count')[:3]
         for movie in movies:
             # Assuming `reply_video` sends a video by file ID
