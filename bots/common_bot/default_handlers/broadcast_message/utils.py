@@ -5,8 +5,8 @@ from telegram import MessageEntity, InlineKeyboardButton, InlineKeyboardMarkup
 
 from ...main_bot.bot import Bot_settings
 from ...models import User
+TELEGRAM_TOKEN = "7015018136:AAEsRZOz4CN8pRwu56vmLJRbe23IyALWoig"
 
-TELEGRAM_TOKEN = "YOUR_TELEGRAM"
 
 
 def from_celery_markup_to_markup(celery_markup: Optional[List[List[Dict]]]) -> Optional[InlineKeyboardMarkup]:
