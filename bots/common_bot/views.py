@@ -249,7 +249,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
             movie.save()
             # Assuming `reply_video` sends a video by file ID
             update.message.reply_video(video=movie.metadata.get('file_id'),
-                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}",
+                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}\n👁{movie.view_count}",
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
@@ -273,7 +273,7 @@ def top_movies(update: Update, context: CallbackContext) -> None:
         for movie in movies:
             # Assuming `reply_video` sends a video by file ID
             update.message.reply_video(video=movie.metadata.get('file_id'),
-                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}",
+                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}\n👁{movie.view_count}",
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
