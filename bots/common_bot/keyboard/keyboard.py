@@ -73,12 +73,12 @@ def default_keyboard(lang) -> ReplyKeyboardMarkup:
     }
     top_1_movies={
         "uz": "🎥 Top 1 Kino",
-        "ru": "🎥 Топ 1 фильмов",
+        "ru": "🎥 Top 1 фильмов",
         "en": "🎥 Top 1 Movies"
     }
     top_3_movies={
         "uz": "🎥 Top 3 Kinolar",
-        "ru": "🎥 Топ 3 Фильмы",
+        "ru": "🎥 Top 3 Фильмы",
         "en": "🎥 Top 3 Movies"
     }
     change_language={
@@ -99,7 +99,7 @@ def default_keyboard(lang) -> ReplyKeyboardMarkup:
 
     about_us={
         "uz": "📞 Biz haqimizda",
-        "ru": "📞 О_нас",
+        "ru": "📞 O_HAC",
         "en": "📞 About Us"
     }
 
