@@ -6,9 +6,6 @@ def language_list_keyboard():
         {"name": "🇺🇿 Uzbek", "id": "uz"},
         {"name": "🇬🇧 English", "id": "en"},
         {"name": "🇷🇺 Russian", "id": "ru"},
-        {"name": "🇪🇸 Spanish", "id": "es"},
-        {"name": "🇫🇷 French", "id": "fr"},
-        {"name": "🇩🇪 German", "id": "de"},
     ]
     keyboard = []
     for button in button_list:
