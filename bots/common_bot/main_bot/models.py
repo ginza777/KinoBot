@@ -68,6 +68,7 @@ class User(models.Model):
                 payload = context.args[0]
                 if str(payload).strip() != str(data["user_id"]).strip():  # you can't invite yourself
                     u.deep_link = payload
+                    u.selected_language = data["language_code"]
                     u.save()
 
         return u, created
