@@ -66,16 +66,51 @@ def movie_share_keyboard(lang) -> InlineKeyboardMarkup:
 
 
 def default_keyboard(lang) -> ReplyKeyboardMarkup:
+    random_movies={
+        "uz": "🎲 Random Kino",
+        "ru": "🎲 Случайный фильм",
+        "en": "🎲 Random Movie"
+    }
+    top_1_movies={
+        "uz": "🎥 Top 1 Kino",
+        "ru": "🎥 Топ 1 фильмов",
+        "en": "🎥 Top 1 Movies"
+    }
+    top_3_movies={
+        "uz": "🎥 Top 3 Kinolar",
+        "ru": "🎥 Топ 3 фильмов",
+        "en": "🎥 Top 3 Movies"
+    }
+    change_language={
+        "uz": "🌍 Tilni o'zgartirish",
+        "ru": "🌍 Изменить язык",
+        "en": "🌍 Change Language"
+    }
+    help={
+        "uz": "📚 Yordam",
+        "ru": "📚 Помощь",
+        "en": "📚 Help"
+    }
+    share_bot={
+        "uz": "📤 Botni ulashish",
+        "ru": "📤 Поделиться ботом",
+        "en": "📤 Share Bot"
+    }
 
+    about_us={
+        "uz": "📞 Biz haqimizda",
+        "ru": "📞 О нас",
+        "en": "📞 About Us"
+    }
 
     buttons = [
-        [ KeyboardButton("🎲 Random Movie")],
+        [ KeyboardButton(random_movies[lang])],
         # Top 3 movies
-        [KeyboardButton("🎥 Top 1 Movies"), KeyboardButton("🎥 Top 3 Movies")],
+        [KeyboardButton(top_1_movies[lang]), KeyboardButton(top_3_movies[lang])],
         # Random movie
-        [KeyboardButton("🌍 Change Language"), KeyboardButton("📚 Help")],
+        [KeyboardButton(change_language[lang]), KeyboardButton(help[lang])],
         # Share the bot
-        [KeyboardButton("📤 Share Bot"), KeyboardButton("📞 About Us")]
+        [KeyboardButton(share_bot[lang]), KeyboardButton(about_us[lang])]
 
     ]
     return ReplyKeyboardMarkup(buttons, resize_keyboard=True)

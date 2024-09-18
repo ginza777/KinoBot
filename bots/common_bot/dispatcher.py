@@ -47,13 +47,35 @@ def setup_dispatcher(dp):
     dp.add_handler(CommandHandler("random_no_trailers_movie", views.random_no_trailers_movie))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex('^\d+$'), views.get_movie_by_code))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🔍 Search Movies"), views.random_no_trailers_movie))
+
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎲 Random Kino"), views.top_movies))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎲 Случайный фильм"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎲 Random Movie"), views.top_movies))
+
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 1 Kino"), views.top_movies))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Топ 1 фильмов"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 1 Movies"), views.top_movies))
+
+
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Kinolar"), views.top_movies))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Топ 3 фильмов"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Movies"), views.top_movies))
+
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🌍 Change Language"), language_handlers.ask_language))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🌍 Tilni o'zgartirish"), language_handlers.ask_language))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🌍 Изменить язык"), language_handlers.ask_language))
+
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📚 Help"), onboarding_handlers.help))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📚 Помощь"), onboarding_handlers.help))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📚 Yordam"), onboarding_handlers.help))
+
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📤 Share Bot"), views.share_bot))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📤 Поделиться ботом"), views.share_bot))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📤 Botni ulashish"), views.share_bot))
+
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 About Us"), onboarding_handlers.about))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 О нас"), onboarding_handlers.about))
+    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 Biz haqimizda"), onboarding_handlers.about))
 
     """
     Adding handlers for events from Telegram

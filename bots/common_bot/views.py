@@ -84,7 +84,7 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
 @admin_only
 def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
-    lang=u.selected_language
+    lang = u.selected_language
     bot_username = context.bot.username
     print(update.message.to_dict())
     video = update.message.video
@@ -113,7 +113,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         chat_id=update.message.chat_id,
                         video=movie_trailer.metadata.get('file_id'),
                         caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>\n👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
-                        reply_markup=start_with_code_keyboard(bot_username, code=movie.code,lang=lang),
+                        reply_markup=start_with_code_keyboard(bot_username, code=movie.code, lang=lang),
                         parse_mode=ParseMode.HTML
 
                     )
@@ -137,7 +137,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                         chat_id=update.message.chat_id,
                         video=movie_trailer.metadata.get('file_id'),
                         caption=f"Kino kodi: {movie.code}\n{movie.caption}" + f"\n<a href='https://t.me/{context.bot.username}?start={movie.code}'>\n👉👉👉To'liq kinoni ko'rish uchun bosing</a>\n" + sign_text,
-                        reply_markup=start_with_code_keyboard(bot_username, code=movie.code,lang=lang),
+                        reply_markup=start_with_code_keyboard(bot_username, code=movie.code, lang=lang),
                         parse_mode=ParseMode.HTML
                     )
 
@@ -197,7 +197,8 @@ def get_movie_by_code(update: Update, context: CallbackContext) -> None:
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
-                                                                                        bot_username=bot_username,lang=lang)
+                                                                                        bot_username=bot_username,
+                                                                                        lang=lang)
                                        )
         else:
 
@@ -209,7 +210,7 @@ def get_movie_by_code(update: Update, context: CallbackContext) -> None:
 @check_subscription_channel_always
 def search_movies(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
-    lang=u.selected_language
+    lang = u.selected_language
     not_movie_data(update, context)
     if update and update.message and update.message.text == "🔍 Search Movies":
         update.message.reply_text("Can you please tell me the name of the movie you are looking for? 🤔🤔🤔")
@@ -253,7 +254,8 @@ def top_movies(update: Update, context: CallbackContext) -> None:
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
-                                                                                        bot_username=context.bot.username,lang=lang)
+                                                                                        bot_username=context.bot.username,
+                                                                                        lang=lang)
                                        )
     if update and update.message and update.message.text == "🎥 Top 1 Movies":
         movies = Movie.objects.order_by('-view_count')[:1]
@@ -264,7 +266,8 @@ def top_movies(update: Update, context: CallbackContext) -> None:
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
-                                                                                        bot_username=context.bot.username,lang=lang)
+                                                                                        bot_username=context.bot.username,
+                                                                                        lang=lang)
 
                                        )
 
@@ -277,7 +280,8 @@ def top_movies(update: Update, context: CallbackContext) -> None:
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
-                                                                                        bot_username=context.bot.username,lang=lang)
+                                                                                        bot_username=context.bot.username,
+                                                                                        lang=lang)
                                        )
 
 
@@ -292,7 +296,7 @@ def share_bot(update: Update, context: CallbackContext) -> None:
 @admin_only
 def random_no_trailers_movie(update: Update, context: CallbackContext) -> None:
     u, created = User.get_user_and_created(update, context)
-    lang=u.selected_language
+    lang = u.selected_language
     not_movie_data(update, context)
     movie = Movie.objects.filter(has_trailer=False).order_by("?").first()
     if movie:
