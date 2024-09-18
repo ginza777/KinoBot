@@ -174,6 +174,8 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
 
 @check_subscription_channel_always
 def get_movie_by_code(update: Update, context: CallbackContext) -> None:
+    u, created = User.get_user_and_created(update, context)
+    lang=u.selected_language
     not_movie_data(update, context)
     sign_text = "\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾@uzbek_kino_time\n♥️ 🐾@uzbek_kino_time_bot"
     bot_username = context.bot.username
@@ -189,16 +191,17 @@ def get_movie_by_code(update: Update, context: CallbackContext) -> None:
             movie.save()
             # Assuming `reply_video` sends a video by file ID
             update.message.reply_video(video=movie.metadata.get('file_id'),
-                                       caption=f"Movie code: {movie.code}\n{movie.caption}" + sign_text,
+                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}" + sign_text,
                                        protect_content=True,
                                        parse_mode="HTML",
                                        reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
                                                                                         bot_username=bot_username)
                                        )
         else:
-            update.message.reply_text("Movie not found with this code 🥺😢🙃")
+
+            update.message.reply_text(static_text.not_fount_movie[lang])
     except ValueError:
-        update.message.reply_text("Invalid input. Please enter a valid movie code.")
+        update.message.reply_text(static_text.input_valid_movie[lang])
 
 
 @check_subscription_channel_always

@@ -45,3 +45,22 @@ share_bot = {
     "ru": "\n📤Поделиться ботом!",
     "en": "\n📤Share bot!"
 }
+
+
+not_fount_movie={
+    "uz":"Film topilmadi 🥺😢🙃️",
+    "ru":"Фильм не найден 🥺😢🙃",
+    "en":"Movie not found 🥺😢🙃️"
+}
+
+input_valid_movie={
+    "en":"Invalid input. Please enter a valid movie code.",
+    "uz":"Noto'g'ri kiritish. Iltimos, to'g'ri film kodi kiriting.",
+    "ru":"Неверный ввод. Пожалуйста, введите правильный код фильма."
+}
+
+movie_code={
+    "uz":"Film kodi",
+    "ru":"Код фильма",
+    "en":"Movie code"
+}
