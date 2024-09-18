@@ -16,9 +16,6 @@ def language_choice_handle(update: Update, context: CallbackContext):
         "uz": "Uzbek",
         "en": "English",
         "ru": "Russian",
-        "es": "Spanish",
-        "fr": "French",
-        "de": "German",
     }
     u, created = User.get_user_and_created(update, context)
     query = update.callback_query
