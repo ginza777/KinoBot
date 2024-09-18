@@ -54,9 +54,11 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def clean(self):
+    def clean(self, *args, **kwargs):
         if self.selected_language is 'null':
             self.selected_language=self.language_code
+        super().clean(*args, **kwargs)
+
 
 
     def __str__(self):
