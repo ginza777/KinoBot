@@ -58,7 +58,7 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
         if preparing_code.isdigit():
             get_movie_by_code(update, context)
             return
-    lang=str(u.language_code) or 'en'
+    lang=str(u.selected_language) or str(u.language_code)
     if created:
         text = static_text.start_created[lang].format(first_name=u.first_name)
     else:
