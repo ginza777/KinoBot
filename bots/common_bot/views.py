@@ -235,6 +235,8 @@ def search_movies(update: Update, context: CallbackContext) -> None:
 
 @check_subscription_channel_always
 def top_movies(update: Update, context: CallbackContext) -> None:
+    u, created = User.get_user_and_created(update, context)
+    lang=u.selected_language
     not_movie_data(update, context)
     if update and update.message and update.message.text == "🎲 Random Movie":
         movie = Movie.objects.order_by("?").first()
@@ -243,20 +245,23 @@ def top_movies(update: Update, context: CallbackContext) -> None:
             movie.save()
             # Assuming `reply_video` sends a video by file ID
             update.message.reply_video(video=movie.metadata.get('file_id'),
-                                       caption=f"Movie code: {movie.code}\n{movie.caption}",
+                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}",
                                        protect_content=True,
                                        parse_mode="HTML",
-                                       reply_markup=make_movie_share_keyboard()
+                                       reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
+                                                                                        bot_username=context.bot.username)
                                        )
     if update and update.message and update.message.text == "🎥 Top 1 Movies":
         movies = Movie.objects.order_by('-view_count')[:1]
         for movie in movies:
             # Assuming `reply_video` sends a video by file ID
             update.message.reply_video(video=movie.metadata.get('file_id'),
-                                       caption=f"Movie code: {movie.code}\n{movie.caption}",
+                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}\n👁{movie.view_count}",
                                        protect_content=True,
                                        parse_mode="HTML",
-                                       reply_markup=make_movie_share_keyboard()
+                                       reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
+                                                                                        bot_username=context.bot.username)
+
                                        )
 
     if update and update.message and update.message.text == "🎥 Top 3 Movies":
@@ -264,16 +269,19 @@ def top_movies(update: Update, context: CallbackContext) -> None:
         for movie in movies:
             # Assuming `reply_video` sends a video by file ID
             update.message.reply_video(video=movie.metadata.get('file_id'),
-                                       caption=f"Movie code: {movie.code}\n{movie.caption}",
+                                       caption=f"{static_text.movie_code[lang]}: {movie.code}\n{movie.caption}",
                                        protect_content=True,
                                        parse_mode="HTML",
-                                       reply_markup=make_movie_share_keyboard()
+                                       reply_markup=make_movie_share_keyboard_with_code(code=movie.code,
+                                                                                        bot_username=context.bot.username)
                                        )
 
 
 @check_subscription_channel_always
 def share_bot(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Share this bot with your friends and family 🥰🥰🥰",
+    u, created = User.get_user_and_created(update, context)
+    lang=u.selected_language
+    update.message.reply_text(static_text.share_bot_text[lang],
                               reply_markup=movie_share_keyboard())
 
 

@@ -64,3 +64,10 @@ movie_code={
     "ru":"Код фильма",
     "en":"Movie code"
 }
+
+
+share_bot_text={
+    "uz":"🍀Full Hd ,4k kinolar 🎥\n🍀Saralangan top dagi kinolar🍿\n🍀Kino kodini yuboring va kinoni yuklab oling\n🍀Barcha kinolar saralangan ,trenddagi kinolar\n🍀Kino kodini yuboring va kinoni yuklab oling\n🍀Botni do'stlaringiz bilan ulashing\n🍀Bot uchun havola :@uzbek_kino_time_bot\n🍀Kanalimiz : @uzbek_kino_time\n",
+    "en":"🍀Full Hd ,4k movies 🎥\n🍀Top rated movies🍿\n🍀Send movie code and download the movie\n🍀All movies are rated, trending movies\n🍀Send movie code and download the movie\n🍀Share the bot with your friends\n🍀Bot link :@uzbek_kino_time_bot\n🍀Our channel : @uzbek_kino_time\n",
+    "ru":"🍀Full Hd ,4k фильмы 🎥\n🍀Лучшие фильмы🍿\n🍀Отправьте код фильма и загрузите фильм\n🍀Все фильмы оценены, трендовые фильмы\n🍀Отправьте код фильма и загрузите фильм\n🍀Поделитесь ботом с друзьями\n🍀Ссылка на бота :@uzbek_kino_time_bot\n🍀Наш канал : @uzbek_kino_time\n"
+}
