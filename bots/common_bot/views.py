@@ -61,9 +61,9 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
 
     lang = "en"
 
-    if u.selected_language and u.selected_language is not 'null':
+    if u.selected_language and u.selected_language != 'null':
         lang = u.selected_language
-    if u.selected_language is 'null':
+    if u.selected_language is None or u.selected_language == 'null':
         u.selected_language = u.language_code
         u.save()
         lang = u.selected_language

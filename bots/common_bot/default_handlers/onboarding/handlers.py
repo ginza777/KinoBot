@@ -60,15 +60,15 @@ def about(update: Update, context: CallbackContext) -> None:
     lang=u.selected_language
 
     if created:
-        text = static_text.start_created.format(first_name=u.first_name)
+        text = static_text.start_created.format(first_name='User')
     if u.is_admin:
-        text = static_text.start_not_created[lang].format(first_name=u.first_name)
+        text = static_text.start_not_created[lang].format(first_name='User')
 
         update.message.reply_text(text + static_text.about_message[lang], parse_mode='HTML',
                                   reply_markup=make_keyboard_for_about_command_admin())
 
     if not u.is_admin:
-        text = static_text.start_not_created[lang].format(first_name=u.first_name)
+        text = static_text.start_not_created[lang].format(first_name='User')
 
         update.message.reply_text(text + static_text.about_message[lang], parse_mode='HTML',
                               reply_markup=make_keyboard_for_about_command())
