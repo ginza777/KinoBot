@@ -53,6 +53,12 @@ class User(models.Model):
     admins = AdminUserManager()  # User.admins.all()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def clean(self):
+        if self.selected_language is 'null':
+            self.selected_language=self.language_code
+
+
     def __str__(self):
         return f'@{self.username}' if self.username is not None else f'{self.user_id}'
 
