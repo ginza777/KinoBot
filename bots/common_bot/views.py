@@ -58,11 +58,11 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
         if preparing_code.isdigit():
             get_movie_by_code(update, context)
             return
-
+    lang=str(u.language_code)
     if created:
-        text = static_text.start_created.format(first_name=u.first_name)
+        text = static_text[lang].start_created.format(first_name=u.first_name)
     else:
-        text = static_text.start_not_created.format(first_name=u.first_name)
+        text = static_text[lang].start_not_created.format(first_name=u.first_name)
 
     if Bot_settings.force_language:
         ask_language(update, context)
