@@ -92,19 +92,18 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
                     #Filmlar
                     #KinoSevishar
                     #FilmDunyosi
-                    #FilmSharh
+                    #Cartoon
                     #KinoTavsiya
                     #DramaFilmlar
                     #KomediyaFilm
-                    #Qo‘rqinchliKino
+                    #QorqinchliKino
                     #FantastikaFilm
                     #Boevik
-                    #O‘zbekKino
+                    #uzbekKino
                     #MilliyKino
                     #film 
                     #actor 
-                    #hollywood
-                     #actress #cinematography #director #filmmaker #filmmaking #horrormovies #movienight #moviescenes #movietime #tamilmovie #filmlover #moviecollector #movieclips #instaflicks #bollywoodmovie #moviestar #movietime🎬🍿 #moviequotes #moviereview #instaflick #disneymovie #cinefilos"""
+                    #hollywood"""
     channel_username, movie_bot_username = movie_channel_username()
 
     sign_text = f"\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾@{channel_username}\n♥️ 🐾{movie_bot_username}"
