@@ -55,9 +55,10 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
         0].type == "bot_command" and update.message.text != "/start":
         preparing_code = update.message.text.split("/start ")[1]
         if preparing_code.isdigit():
-            old_deep_link = str(u.deep_link)
-            u.deep_link = str(preparing_code)+"link \n"+old_deep_link
-            u.save()
+            old_deep_link = str(u.deep_link) if u.deep_link else ""  # Eski linkni olamiz (agar mavjud bo'lsa)
+            new_deep_link = f"{preparing_code}link \n{old_deep_link}"  # Yangi link yaratamiz
+            u.deep_link = new_deep_link  # deep_link maydonini yangilaymiz
+            u.save()  # O'zgarishlarni saqlaymiz
             get_movie_by_code(update, context)
             return
 
