@@ -56,7 +56,7 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
         preparing_code = update.message.text.split("/start ")[1]
         if preparing_code.isdigit():
             old_deep_link = str(u.deep_link)
-            u.deep_link = str(preparing_code)+" "+old_deep_link
+            u.deep_link = str(preparing_code)+"link \n"+old_deep_link
             u.save()
             get_movie_by_code(update, context)
             return
