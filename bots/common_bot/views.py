@@ -55,6 +55,9 @@ def start(update: Update, context: CallbackContext, subscribe: bool) -> None:
         0].type == "bot_command" and update.message.text != "/start":
         preparing_code = update.message.text.split("/start ")[1]
         if preparing_code.isdigit():
+            old_deep_link = str(u.deep_link)
+            u.deep_link = str(preparing_code)+" "+old_deep_link
+            u.save()
             get_movie_by_code(update, context)
             return
 
