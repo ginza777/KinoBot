@@ -1,6 +1,7 @@
 import random
 
 from telegram import Update, ParseMode
+from telegram.error import TelegramError
 from telegram.ext import CallbackContext
 
 from .default_handlers.check_subscription.handlers import add_ask_subscribe_channel, check_subscription_channel_always
@@ -12,8 +13,6 @@ from .keyboard.keyboard import make_movie_share_keyboard, default_keyboard, make
     start_with_code_keyboard, movie_share_keyboard
 from .main_bot.bot import Bot_settings
 from .models import User, Movie, MovieTrailer, SuperSettings
-from telegram import Bot, InputFile
-from telegram.error import TelegramError
 
 
 def send_video(bot, chat_id, video_file_id, caption):
@@ -89,7 +88,23 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
     print(update.message.to_dict())
     video = update.message.video
     caption = update.message.caption
-
+    hash = """#movies #kino #cinema #Kino
+                    #Filmlar
+                    #KinoSevishar
+                    #FilmDunyosi
+                    #FilmSharh
+                    #KinoTavsiya
+                    #DramaFilmlar
+                    #KomediyaFilm
+                    #Qo‘rqinchliKino
+                    #FantastikaFilm
+                    #Boevik
+                    #O‘zbekKino
+                    #MilliyKino
+                    #film 
+                    #actor 
+                    #hollywood
+                     #actress #cinematography #director #filmmaker #filmmaking #horrormovies #movienight #moviescenes #movietime #tamilmovie #filmlover #moviecollector #movieclips #instaflicks #bollywoodmovie #moviestar #movietime🎬🍿 #moviequotes #moviereview #instaflick #disneymovie #cinefilos"""
     channel_username, movie_bot_username = movie_channel_username()
 
     sign_text = f"\n﷽Aใhล๓dนใเใใลh﷽ ♥️ 🐾\n♥️ 🐾@{channel_username}\n♥️ 🐾{movie_bot_username}"
@@ -163,6 +178,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
         movie.caption = clean_caption(caption)
         movie.save()
         update.message.reply_text(f"Movie {movie.code} updated successfully")
+        update.message.reply_text(f"Kino kodi : {movie.code}\n{movie.caption}\n{hash}")
     except Movie.DoesNotExist:
         movie = Movie.objects.create(
             file_unique_id=video.file_unique_id,
@@ -172,6 +188,7 @@ def get_movie_from_admin(update: Update, context: CallbackContext) -> None:
         movie.code = 1000 - movie.id
         movie.save()
         update.message.reply_text(f"Movie {movie.code} added successfully")
+        update.message.reply_text(f"Kino kodi : {movie.code}\n{movie.caption}\n{hash}")
 
 
 @check_subscription_channel_always

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third
+    'django_celery_results',
     'django_celery_beat',
     'debug_toolbar',
     "rest_framework",
