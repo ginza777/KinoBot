@@ -3,7 +3,9 @@ from datetime import timedelta
 from pathlib import Path
 
 import environ
-
+import json
+import os
+import logging.config
 from core.jazzmin_conf import *  # noqa
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -25,8 +27,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third
-    'django_celery_results',
+
     'django_celery_beat',
+    'django_celery_results',
     'debug_toolbar',
     "rest_framework",
     "drf_yasg",
@@ -142,6 +145,9 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# CACHES
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
@@ -150,19 +156,22 @@ CACHES = {
     }
 }
 
-AUDITLOG_INCLUDE_ALL_MODELS = True
+REDIS_HOST = env.str("REDIS_HOST", "localhost")
+REDIS_PORT = env.int("REDIS_PORT", 6379)
+REDIS_DB = env.int("REDIS_DB", 0)
 
-BROKER_URL = "redis://localhost:6379"
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Tashkent'
-BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_RESULT_EXTENDED = True
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
-WEBHOOK_URL = env.str("WEBHOOK_URL")
-CELERY_WEBHOOK = env.bool("CELERY_WEBHOOK")
+CELERY_TIMEZONE = "Asia/Tashkent"
+
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+WEBHOOK_URL = env.str("WEBHOOK_URL", "https://bot.zamonsher.icu")
+CELERY_WEBHOOK = env.bool("CELERY_WEBHOOK", False)
 
 CELERY_BEAT_SCHEDULE = {
     'set-webhook-task': {
@@ -171,3 +180,34 @@ CELERY_BEAT_SCHEDULE = {
 
     }
 }
+
+
+
+
+# Clear prev config
+LOGGING_CONFIG = None
+
+# Get loglevel from env
+LOGLEVEL = os.getenv('DJANGO_LOGLEVEL', 'info').upper()
+
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': LOGLEVEL,
+            'handlers': ['console',],
+        },
+    },
+})
