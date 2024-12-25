@@ -4,7 +4,14 @@ from django.conf import settings
 from ...models import BotToken
 from ...main_bot.bot import Bot_settings
 
-token_list = BotToken.objects.all().values_list("token", flat=True)
+
+try:
+    token_list = BotToken.objects.all().values_list("token", flat=True)
+except Exception as e:
+    print("An error occurred:", str(e))
+    token_list = []
+
+
 webhook_url = Bot_settings.webhook_url
 
 

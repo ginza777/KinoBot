@@ -1,0 +1,40 @@
+stages:
+  - pull
+  - deploy
+  - test
+
+pull:
+  stage: pull
+  script:
+    - echo "Building the application"
+    - sudo docker ps
+    - cd /var/www/taxipark-bot/taxipark-bot && sudo git pull origin master 
+  tags:
+    - contabo
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - echo "Running tests"
+    - cd /var/www/taxipark-bot/taxipark-bot
+    - sudo docker exec taxipark-bot_backend python manage.py test --settings=core.settings.develop
+    - echo "Tests passed"
+  tags:
+    - contabo
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying application"
+    - cd /var/www/taxipark-bot/taxipark-bot
+    - sudo docker-compose -f docker-compose.prod.yml up -d --build
+    - echo "Deployment complete"
+  tags:
+    - contabo
+
+  only:
+    - master
