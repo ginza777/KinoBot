@@ -55,7 +55,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if self.selected_language is 'null' or self.selected_language is None:
+        if self.selected_language == 'null' or self.selected_language is None:
             self.selected_language=self.language_code
         super().save(*args, **kwargs)
 
