@@ -1,0 +1,103 @@
+
+sudo nano /etc/nginx/sites-available/kino.zamonsher.icu
+
+
+
+server {
+    listen 80;
+    server_name kino.zamonsher.icu;
+
+
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /var/opt/CommonBot/KinoBot;
+    }
+
+    location /media/ {
+        root /var/opt/CommonBot/KinoBot;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/bot.sock;
+        proxy_connect_timeout 300s;
+        proxy_read_timeout 300s;
+    }
+}
+
+
+
+sudo ln -s /etc/nginx/sites-available/kino.zamonsher.icu /etc/nginx/sites-enabled
+
+journalctl -xeu nginx.service
+
+
+
+
+
+#certbot
+
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d kino.zamonsher.icu
+sudo systemctl status certbot.timer
+sudo certbot renew --dry-run
+
+
+systemctl daemon-reload
+
+sudo nginx -t
+
+sudo journalctl -u bot --lines 50
+sudo tail -F /var/log/nginx/error.log
+
+sudo nano /etc/nginx/sites-available/kinobot.zamonsher.icu
+
+
+
+server {
+    listen 80;
+    server_name kinobot.zamonsher.icu;
+
+
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /var/opt/CommonBot/KinoBot;
+    }
+
+    location /media/ {
+        root /var/opt/CommonBot/KinoBot;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_connect_timeout 300s;
+        proxy_read_timeout 300s;
+    }
+}
+
+
+
+sudo ln -s /etc/nginx/sites-available/kinobot.zamonsher.icu /etc/nginx/sites-enabled
+
+journalctl -xeu nginx.service
+
+
+
+
+
+#certbot
+
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d kinobot.zamonsher.icu
+sudo systemctl status certbot.timer
+sudo certbot renew --dry-run
+
+
+systemctl daemon-reload
+
+sudo nginx -t
+
+sudo journalctl -u bot --lines 50
+sudo tail -F /var/log/nginx/error.log
