@@ -7,6 +7,7 @@ from .models import Movie, MovieChannel, Unnecessary_word_filter, MovieTrailer,S
 class SuperSettingsAdmin(admin.ModelAdmin):
     list_display = ["id", "movie_channel_username", "movie_bot_username","movie_count","movie_trailer_count"]
 
+
     def movie_count(self, obj):
         return Movie.objects.count()
 
@@ -18,6 +19,7 @@ class SuperSettingsAdmin(admin.ModelAdmin):
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['id', "view_count", 'file_unique_id', "code", "caption", "has_trailer"]
     search_fields = ('code', 'caption')
+    list_editable = ['caption']
 
 
 @admin.register(MovieTrailer)

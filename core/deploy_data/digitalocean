@@ -153,3 +153,16 @@ sudo tail -F /var/log/nginx/error.log
 
 celery -A  core beat --loglevel=info  --scheduler django_celery_beat.schedulers:DatabaseScheduler
 celery -A  core worker  --loglevel=info
+
+
+
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /var/opt/CommonBot/KinoBot;
+    }
+
+    location /media/ {
+        /var/opt/CommonBot/KinoBot;
+    }
+
