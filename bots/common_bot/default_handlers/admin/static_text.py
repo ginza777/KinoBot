@@ -2,6 +2,7 @@ command_start = '/stats'
 
 secret_admin_commands = (f"⚠️ Secret Admin commands\n"
                          f"• /export_users - Export users.csv\n"
+                         f"• /export_movies - Export users.csv\n"
                          f"• /broadcast - Broadcast message\n"
                          f"• /stats - Statistics of bot\n"
                          f"• /admin - Show admin info\n"
