@@ -65,7 +65,7 @@ def export_movie(update: Update, context: CallbackContext) -> None:
     ]
 
     # Convert the queryset to a CSV file
-    csv_movies = _get_csv_from_qs_values(movies, filename="movies")
+    csv_movies = _get_csv_from_qs_values2(movies, filename="movies")
     update.message.reply_document(csv_movies)
 @admin_only
 @send_typing_action
