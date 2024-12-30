@@ -30,9 +30,16 @@ def _get_csv_from_qs_values(queryset: QuerySet[Dict], filename: str = 'users'):
     return buf
 
 
+import csv
+import io
+from typing import Dict
+from datetime import datetime
+from django.db.models import QuerySet
+
+
 def _get_csv_from_qs_values2(queryset: QuerySet[Dict], filename: str = "data"):
     """
-    Converts a queryset into a CSV file buffer, including full details of related fields.
+    Converts a queryset into a CSV file buffer, including details from related fields.
 
     Args:
         queryset (QuerySet): The queryset to export.
@@ -44,32 +51,19 @@ def _get_csv_from_qs_values2(queryset: QuerySet[Dict], filename: str = "data"):
     if not queryset.exists():
         raise ValueError("The queryset is empty.")
 
-    # Preparing the complete data for export
-    enriched_data = []
-    for obj in queryset:
-        # Flattening the Movie fields
-        movie_data = {key: obj.get(key) for key in obj.keys() if not key.startswith("trailer__")}
+    # Extract field names from the first object in the queryset
+    fieldnames = set()
+    for item in queryset:
+        fieldnames.update(item.keys())
 
-        # Flattening the Trailer fields
-        if "trailer" in obj:
-            trailer_data = {f"trailer_{key}": value for key, value in obj["trailer"].items()}
-        else:
-            trailer_data = {}
-
-        # Combining Movie and Trailer data
-        enriched_data.append({**movie_data, **trailer_data})
-
-    # Extract all unique fieldnames from the enriched data
-    fieldnames = set(key for data in enriched_data for key in data.keys())
-
-    # Writing the CSV to a string buffer
+    # Writing the CSV data to a StringIO buffer
     csv_buffer = io.StringIO()
     writer = csv.DictWriter(csv_buffer, fieldnames=sorted(fieldnames))
     writer.writeheader()
-    writer.writerows(enriched_data)
+    writer.writerows(queryset)
     csv_buffer.seek(0)
 
-    # Converting to BytesIO for Telegram compatibility
+    # Convert to BytesIO for Telegram compatibility
     bytes_buffer = io.BytesIO()
     bytes_buffer.write(csv_buffer.getvalue().encode("utf-8"))
     bytes_buffer.seek(0)

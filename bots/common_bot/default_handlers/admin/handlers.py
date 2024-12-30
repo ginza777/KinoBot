@@ -48,7 +48,7 @@ def export_users(update: Update, context: CallbackContext) -> None:
 @admin_only
 @send_typing_action
 def export_movie(update: Update, context: CallbackContext) -> None:
-    # Fetch movies and trailers with full details
+    # Fetch movies and related trailers with full details
     movies = Movie.objects.select_related("trailer").values(
         "file_unique_id",
         "caption",
@@ -65,6 +65,7 @@ def export_movie(update: Update, context: CallbackContext) -> None:
 
     # Send the CSV file via Telegram
     update.message.reply_document(csv_file)
+
 @admin_only
 @send_typing_action
 def backup_db(update: Update, context: CallbackContext) -> None:
