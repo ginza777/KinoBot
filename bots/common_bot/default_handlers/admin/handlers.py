@@ -10,7 +10,7 @@ from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
 from . import static_text
-from .utils import _get_csv_from_qs_values
+from .utils import _get_csv_from_qs_values, _get_csv_from_qs_values2
 from ..utils.decorators import admin_only, send_typing_action
 from ...models import User,Movie
 
