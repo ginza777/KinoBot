@@ -41,7 +41,7 @@ def stats(update: Update, context: CallbackContext) -> None:
 def export_users(update: Update, context: CallbackContext) -> None:
     # in values argument you can specify which fields should be returned in output csv
     users = User.objects.all().values()
-    csv_users = _get_csv_from_qs_values(users)
+    csv_users = _get_csv_from_qs_values(users,filename="users")
     update.message.reply_document(csv_users)
 
 @admin_only
