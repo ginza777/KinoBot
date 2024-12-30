@@ -49,7 +49,7 @@ def export_users(update: Update, context: CallbackContext) -> None:
 def export_movie(update: Update, context: CallbackContext) -> None:
     # in values argument you can specify which fields should be returned in output csv
     movies = Movie.objects.all().values()
-    csv_movies = _get_csv_from_qs_values(movies)
+    csv_movies = _get_csv_from_qs_values(movies,filename="movies")
     update.message.reply_document(csv_movies)
 
 
