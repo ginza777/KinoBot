@@ -3,8 +3,6 @@
 """
 from telegram.ext import (
     CommandHandler, MessageHandler, CallbackQueryHandler, Filters, ConversationHandler)
-from django.conf import settings
-from telegram.ext.dispatcher import Dispatcher
 
 from . import views
 from .default_handlers.admin import handlers as admin_handlers
@@ -17,7 +15,7 @@ from .default_handlers.location import handlers as location_handlers
 from .default_handlers.onboarding import handlers as onboarding_handlers
 from .default_handlers.onboarding.manage_data import SECRET_LEVEL_BUTTON
 from .state import state
-from .main_bot.bot import Bot_settings
+
 
 def setup_dispatcher(dp):
     states = {
@@ -40,7 +38,6 @@ def setup_dispatcher(dp):
         name="conversationbot",
     )
 
-
     dp.add_handler(
         CallbackQueryHandler(broadcast_handlers.broadcast_decision_handler, pattern=f"^{CONFIRM_DECLINE_BROADCAST}")
     )
@@ -62,13 +59,13 @@ def setup_dispatcher(dp):
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Топ 1 фильмов"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 1 Movies"), views.top_movies))
 
-
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Kinolar"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Топ 3 Фильмы"), views.top_movies))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🎥 Top 3 Movies"), views.top_movies))
 
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🌍 Change Language"), language_handlers.ask_language))
-    dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🌍 Tilni o'zgartirish"), language_handlers.ask_language))
+    dp.add_handler(
+        MessageHandler(Filters.text & Filters.regex(r"^🌍 Tilni o'zgartirish"), language_handlers.ask_language))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^🌍 Изменить язык"), language_handlers.ask_language))
 
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📚 Help"), onboarding_handlers.help))
@@ -82,7 +79,6 @@ def setup_dispatcher(dp):
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 About Us"), onboarding_handlers.about))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 О_нас"), onboarding_handlers.about))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^📞 Biz haqimizda"), onboarding_handlers.about))
-
 
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^перезапуск"), views.start))
     dp.add_handler(MessageHandler(Filters.text & Filters.regex(r"^restart"), views.start))
@@ -102,14 +98,13 @@ def setup_dispatcher(dp):
     dp.add_handler(CommandHandler("stats", admin_handlers.stats))
     dp.add_handler(CommandHandler("backup_db", admin_handlers.backup_db))
     dp.add_handler(CommandHandler('export_users', admin_handlers.export_users))
+    dp.add_handler(CommandHandler('export_movies', admin_handlers.export_movie))
     dp.add_handler(
         MessageHandler(Filters.regex(rf'^{broadcast_command}(/s)?.*'),
                        broadcast_handlers.broadcast_command_with_message)
     )
     # secret level
     dp.add_handler(CallbackQueryHandler(onboarding_handlers.secret_level, pattern=f"^{SECRET_LEVEL_BUTTON}"))
-
-
 
     # about help
     dp.add_handler(CommandHandler("help", onboarding_handlers.help))
@@ -124,5 +119,3 @@ def setup_dispatcher(dp):
     dp.add_handler(CallbackQueryHandler(language_handlers.language_choice_handle, pattern="^language_setting_"))
 
     return dp
-
-

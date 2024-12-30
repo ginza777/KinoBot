@@ -12,7 +12,7 @@ from telegram.ext import CallbackContext
 from . import static_text
 from .utils import _get_csv_from_qs_values
 from ..utils.decorators import admin_only, send_typing_action
-from ...models import User
+from ...models import User,Movie
 
 
 @admin_only
@@ -43,6 +43,14 @@ def export_users(update: Update, context: CallbackContext) -> None:
     users = User.objects.all().values()
     csv_users = _get_csv_from_qs_values(users)
     update.message.reply_document(csv_users)
+
+@admin_only
+@send_typing_action
+def export_movie(update: Update, context: CallbackContext) -> None:
+    # in values argument you can specify which fields should be returned in output csv
+    movies = Movie.objects.all().values()
+    csv_movies = _get_csv_from_qs_values(movies)
+    update.message.reply_document(csv_movies)
 
 
 @admin_only
