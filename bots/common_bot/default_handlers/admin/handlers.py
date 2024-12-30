@@ -44,15 +44,29 @@ def export_users(update: Update, context: CallbackContext) -> None:
     csv_users = _get_csv_from_qs_values(users,filename="users")
     update.message.reply_document(csv_users)
 
+
 @admin_only
 @send_typing_action
 def export_movie(update: Update, context: CallbackContext) -> None:
-    # in values argument you can specify which fields should be returned in output csv
-    movies = Movie.objects.all().values()
-    csv_movies = _get_csv_from_qs_values(movies,filename="movies")
+    # Fetch movies and replace trailer_id with trailer_file_unique_id
+    movies = Movie.objects.all().values(
+        "file_unique_id",
+        "caption",
+        "code",
+        "metadata",
+        "view_count",
+        "has_trailer",
+    )
+
+    # Add trailer_file_unique_id from the related MovieTrailer instance
+    movies = [
+        {**movie, "trailer_file_unique_id": movie.get("trailer__file_unique_id", None)}
+        for movie in Movie.objects.select_related("trailer").values()
+    ]
+
+    # Convert the queryset to a CSV file
+    csv_movies = _get_csv_from_qs_values(movies, filename="movies")
     update.message.reply_document(csv_movies)
-
-
 @admin_only
 @send_typing_action
 def backup_db(update: Update, context: CallbackContext) -> None:
