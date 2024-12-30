@@ -48,13 +48,23 @@ def export_users(update: Update, context: CallbackContext) -> None:
 @admin_only
 @send_typing_action
 def export_movie(update: Update, context: CallbackContext) -> None:
-    # Fetch movies and replace trailer_id with trailer_file_unique_id
-    movies = Movie.objects.all().values()
-
+    # Fetch movies and trailers with full details
+    movies = Movie.objects.select_related("trailer").values(
+        "file_unique_id",
+        "caption",
+        "code",
+        "metadata",
+        "view_count",
+        "has_trailer",
+        "trailer__file_unique_id",
+        "trailer__metadata",
+    )
 
     # Convert the queryset to a CSV file
-    csv_movies = _get_csv_from_qs_values2(movies, filename="movies")
-    update.message.reply_document(csv_movies)
+    csv_file = _get_csv_from_qs_values(movies, filename="movies_and_trailers")
+
+    # Send the CSV file via Telegram
+    update.message.reply_document(csv_file)
 @admin_only
 @send_typing_action
 def backup_db(update: Update, context: CallbackContext) -> None:
